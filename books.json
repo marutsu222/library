@@ -1,0 +1,17 @@
+[
+  {
+    "id": "book-001",
+    "title": "大叙事詩 1話",
+    "category": "大叙事詩",
+    "level": "基礎",
+    "description": "横スライドで読める漫画ビューアのサンプル作品です。",
+    "details": [
+      "ページ画像はWebP形式",
+      "スマートフォンの横スワイプに対応",
+      "続きから読めるよう読書位置を保存"
+    ],
+    "recommended": 1,
+    "cover": "./books/book-001/cover.webp",
+    "bookData": "./books/book-001/book.json"
+  }
+]

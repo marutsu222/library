@@ -1,0 +1,12 @@
+{
+  "id": "book-001",
+  "title": "大叙事詩 1話",
+  "category": "大叙事詩",
+  "readingDirection": "rtl",
+  "cover": "./cover.webp",
+  "pages": [
+    "./001.webp",
+    "./002.webp",
+    "./003.webp"
+  ]
+}

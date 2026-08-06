@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111318">
+  <title>漫画ビューア｜吉田図書館</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./viewer.css">
+  <script src="./viewer.js" defer></script>
+</head>
+<body class="reader-page-body">
+  <main class="standalone-reader" id="readerApp" aria-busy="true">
+    <header class="reader-header">
+      <a class="reader-back" href="./index.html#books" aria-label="書籍一覧へ戻る">‹ <span>一覧へ</span></a>
+      <div class="reader-title"><strong id="readerBookTitle">読み込み中…</strong><small id="readerHint">横にスワイプして読めます</small></div>
+      <button id="readerFullscreen" class="reader-icon-button" type="button" aria-label="全画面表示">⛶</button>
+    </header>
+
+    <section class="reader-stage" aria-label="漫画ページ">
+      <button id="readerPrev" class="reader-nav reader-prev" type="button" aria-label="前のページ">‹</button>
+      <div id="readerPages" class="reader-pages"><div class="reader-message">作品を読み込んでいます…</div></div>
+      <button id="readerNext" class="reader-nav reader-next" type="button" aria-label="次のページ">›</button>
+    </section>
+
+    <footer class="reader-footer">
+      <input id="readerProgress" class="reader-progress" type="range" min="1" max="1" value="1" aria-label="ページ移動">
+      <span id="readerCounter" class="reader-counter">0 / 0</span>
+    </footer>
+  </main>
+</body>
+</html>
