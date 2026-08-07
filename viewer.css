@@ -658,11 +658,11 @@ footer p {
   }
 
   .hero {
-    padding: 28px 22px 20px;
+    padding: 28px 22px 30px;
   }
 
   .hero h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .hero-visual {
