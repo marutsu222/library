@@ -710,108 +710,19 @@ footer p {
    12-A. レスポンシブ：タブレット（1050px以下）
    ========================================================== */
 
-@media (max-width: 1050px) {
-  .book-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 
-  .filter-panel {
-    grid-template-columns: 1fr;
-  }
-}
 
 /* ==========================================================
    12-B. レスポンシブ：タブレット / スマホ（780px以下）
    ========================================================== */
 
-@media (max-width: 780px) {
-  .header-nav {
-    display: none;
-  }
 
-  .hero {
-    grid-template-columns: 1fr;
-    min-height: auto;
-    padding-top: 64px;
-  }
-
-  .hero-visual {
-    min-height: 430px;
-  }
-
-  .book-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .feature-grid,
-  .steps {
-    grid-template-columns: 1fr;
-  }
-
-  .modal-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .modal-cover {
-    min-height: 280px;
-  }
-}
 
 /* ==========================================================
    12-C. レスポンシブ：スマホ（520px以下）
    ========================================================== */
 
-@media (max-width: 520px) {
-  .site-header {
-    min-height: 62px;
-  }
 
-  .logo {
-    font-size: .86rem;
-  }
-
-  .hero {
-    padding: 28px 22px 30px;
-  }
-
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-
-  .hero-visual {
-    min-height: 0;
-  }
-
-  .book-stack {
-    transform: scale(.78);
-  }
-
-  .search-section,
-  .features,
-  .guide {
-    padding: 72px 20px;
-  }
-
-  .book-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .result-bar {
-    align-items: flex-start;
-    gap: 8px;
-    flex-direction: column;
-  }
-
-  footer {
-    align-items: flex-start;
-    gap: 24px;
-    flex-direction: column;
-  }
-
-  .modal-body {
-    padding: 34px 24px;
-  }
-}
 
 
 /* ==========================================================
@@ -879,15 +790,7 @@ footer p {
   padding:0 20px; border:0; border-radius:12px; color:#fff; background:var(--accent);
   cursor:pointer; font-weight:900;
 }
-@media (max-width: 700px) {
-  .reader-dialog { width:100vw; height:100vh; }
-  .reader-header { min-height:58px; padding:8px 12px; }
-  .reader-page { padding:14px; }
-  .reader-paper { width:100%; height:calc(100vh - 150px); padding:28px 22px; border-radius:4px; }
-  .reader-nav { width:40px; height:54px; opacity:.72; }
-  .reader-prev { left:5px; } .reader-next { right:5px; }
-  .reader-footer { min-height:54px; padding:8px 12px; }
-}
+
 
 /* ==========================================================
    09. 画像漫画向け調整
@@ -925,10 +828,7 @@ footer p {
 }
 .reader-nav:disabled { opacity: .25; cursor: default; }
 body.reader-open { overflow: hidden; }
-@media (max-width: 700px) {
-  .reader-page { padding: 0; }
-  .reader-page-image { width: 100%; height: 100%; box-shadow: none; }
-}
+
 
 /* ==========================================================
    10. 一覧ページ / 独立ビューア補助
@@ -970,13 +870,7 @@ body.reader-open { overflow: hidden; }
 .reader-message { display: grid; flex: 0 0 100%; width: 100%; height: 100%; place-items: center; padding: 40px; color: #d9dde5; text-align: center; }
 .reader-error { color: #ffb4bd; }
 
-@media (max-width: 700px) {
-  .reader-header { grid-template-columns: auto minmax(0,1fr) auto; min-height: 58px; }
-  .reader-back span { display: none; }
-  .reader-page { padding: 6px 0; }
-  .reader-nav { display: none; }
-  .reader-title small { display: none; }
-}
+
 
 
 /* ==========================================================
@@ -1223,70 +1117,9 @@ body.reader-open { overflow: hidden; }
   font-size: 1.6rem;
 }
 
-@media (max-width: 780px) {
-  .gallery-section {
-    padding: 68px 0 76px;
-  }
 
-  .gallery-heading {
-    align-items: flex-start;
-    padding: 0 20px;
-    margin-bottom: 22px;
-  }
 
-  .gallery-heading > div:first-child {
-    max-width: 78%;
-  }
 
-  .gallery-heading p:last-child {
-    font-size: .9rem;
-  }
-
-  .gallery-counter { display: none; }
-  .gallery-arrow { width: 40px; height: 40px; }
-
-  .gallery-track {
-    gap: 14px;
-    padding: 6px 20px 20px;
-    scroll-padding-inline: 20px;
-  }
-
-  .gallery-card {
-    flex-basis: calc(100vw - 56px);
-    scroll-snap-align: start;
-  }
-
-  .gallery-image-frame {
-    border-radius: 18px;
-  }
-}
-
-@media (max-width: 520px) {
-  .gallery-heading {
-    display: block;
-  }
-
-  .gallery-heading > div:first-child {
-    max-width: none;
-  }
-
-  .gallery-controls {
-    display: none;
-  }
-
-  .gallery-card {
-    flex-basis: calc(100vw - 44px);
-  }
-
-  .gallery-track {
-    padding-inline: 22px;
-    scroll-padding-inline: 22px;
-  }
-
-  .gallery-image-frame {
-    aspect-ratio: 4 / 3;
-  }
-}
 
 /* ==========================================================
    13. 2026-08 UI更新
@@ -1509,53 +1342,11 @@ body.reader-open { overflow: hidden; }
    13-E. 追加レスポンシブ
    ========================================================== */
 
-@media (max-width: 1050px) {
-  .filter-panel {
-    grid-template-columns: 1fr;
-  }
 
-  .filter-reset-button {
-    width: 100%;
-  }
-}
 
-@media (max-width: 780px) {
-  .hero {
-    padding-bottom: 22px;
-  }
 
-  .search-section {
-    padding-top: 36px;
-  }
 
-  .menu-toggle {
-    width: 44px;
-    height: 44px;
-  }
 
-  .header-menu {
-    position: fixed;
-    top: 70px;
-    left: 16px;
-    right: 16px;
-    min-width: 0;
-  }
-}
-
-@media (max-width: 520px) {
-  .hero {
-    padding-bottom: 15px;
-  }
-
-  .search-section {
-    padding-top: 36px;
-  }
-
-  .favorite-button {
-    top: 10px;
-    right: 10px;
-  }
-}
 
 /* ==========================================================
    14. 2026-08 追加調整
@@ -1700,77 +1491,430 @@ body.reader-open { overflow: hidden; }
    小さい画面でも見やすいよう説明文などを圧縮。
    ========================================================== */
 
+
+/* ==========================================================
+   15. レスポンシブ設計【整理版】
+   ----------------------------------------------------------
+   ここより下だけがタブレット・スマホ用CSSです。
+
+   方針
+   ・PC用CSSとスマホ用CSSを混在させない
+   ・同じ画面幅の @media を複数箇所へ書かない
+   ・375px / 390px / 430px を基準に調整
+   ========================================================== */
+
+
+/* ==========================================================
+   15-A. PC補助：読むボタンの短縮表示は隠す
+   ========================================================== */
+
+.read-label-short {
+  display: none;
+}
+
+
+/* ==========================================================
+   15-B. タブレット：1050px以下
+   ========================================================== */
+
+@media (max-width: 1050px) {
+
+  /* ----- 本棚：4列 → 3列 ----- */
+  .book-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* ----- 検索欄：縦並びへ ----- */
+  .filter-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-reset-button {
+    grid-column: auto;
+    justify-self: end;
+  }
+}
+
+
+/* ==========================================================
+   15-C. 小型タブレット：780px以下
+   ========================================================== */
+
+@media (max-width: 780px) {
+
+  /* ----- ヘッダー / 三本線メニュー ----- */
+  .site-header {
+    min-height: 64px;
+    padding-inline: 18px;
+  }
+
+  .logo {
+    font-size: .9rem;
+  }
+
+  .menu-toggle {
+    width: 44px;
+    height: 44px;
+  }
+
+  .header-menu {
+    position: fixed;
+    top: 72px;
+    left: 16px;
+    right: 16px;
+    min-width: 0;
+  }
+
+  /* ----- Hero：縦並び ----- */
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding: 44px 24px 22px;
+  }
+
+  .hero-copy {
+    max-width: none;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 9vw, 4rem);
+  }
+
+  .hero-text {
+    margin: 18px 0 8px;
+  }
+
+  .hero-visual {
+    min-height: 0;
+    padding-top: 4px;
+  }
+
+  .hero-character {
+    width: min(390px, 88vw);
+  }
+
+  /* ----- 本棚 ----- */
+  .search-section {
+    padding: 34px 20px 66px;
+  }
+
+  .section-heading {
+    margin-bottom: 24px;
+  }
+
+  .filter-panel {
+    gap: 12px;
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  .filter-reset-button {
+    width: auto;
+    justify-self: end;
+  }
+
+  .result-bar {
+    margin: 16px 0 12px;
+  }
+
+  .book-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  /* ----- HOW TO ----- */
+  .features {
+    padding: 70px 20px;
+  }
+
+  .howto-track {
+    gap: 16px;
+  }
+
+  .howto-card {
+    flex-basis: min(78vw, 390px);
+  }
+
+  /* ----- Gallery ----- */
+  .gallery-section {
+    padding: 68px 0 74px;
+  }
+
+  .gallery-heading {
+    align-items: flex-start;
+    padding: 0 20px;
+    margin-bottom: 22px;
+  }
+
+  .gallery-heading > div:first-child {
+    max-width: 78%;
+  }
+
+  .gallery-counter {
+    display: none;
+  }
+
+  .gallery-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .gallery-track {
+    gap: 14px;
+    padding: 6px 20px 20px;
+    scroll-padding-inline: 20px;
+  }
+
+  .gallery-card {
+    flex-basis: min(82vw, 520px);
+    scroll-snap-align: start;
+  }
+
+  .gallery-image-frame {
+    border-radius: 18px;
+  }
+
+  /* ----- Footer ----- */
+  footer {
+    align-items: flex-start;
+    gap: 20px;
+    flex-direction: column;
+  }
+}
+
+
+/* ==========================================================
+   15-D. スマホ：520px以下
+   ----------------------------------------------------------
+   375px / 390px / 430pxを主対象
+   ========================================================== */
+
 @media (max-width: 520px) {
+
+  /* ========================================================
+     ヘッダー
+     ======================================================== */
+  .site-header {
+    min-height: 60px;
+    padding: 0 14px;
+  }
+
+  .logo {
+    gap: 8px;
+    font-size: .78rem;
+    letter-spacing: .04em;
+  }
+
+  .logo-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+  }
+
+  .menu-toggle {
+    width: 40px;
+    height: 40px;
+    padding: 9px;
+    border-radius: 11px;
+  }
+
+  .menu-toggle span {
+    width: 20px;
+  }
+
+  .header-menu {
+    top: 66px;
+    left: 12px;
+    right: 12px;
+  }
+
+  /* ========================================================
+     Hero
+     文章・画像の上下余白を最小限にする
+     ======================================================== */
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding: 28px 18px 12px;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.15rem, 10.4vw, 2.75rem);
+    line-height: 1.13;
+  }
+
+  .hero-text {
+    max-width: none;
+    margin: 14px 0 4px;
+    font-size: .9rem;
+    line-height: 1.75;
+  }
+
+  .hero-visual {
+    min-height: 0;
+    padding: 0;
+  }
+
+  .hero-character {
+    width: min(330px, 82vw);
+    max-height: none;
+  }
+
+  /* ========================================================
+     本棚 / 検索
+     ======================================================== */
+  .search-section {
+    padding: 30px 14px 58px;
+  }
+
+  .section-heading {
+    margin-bottom: 20px;
+  }
+
+  .section-heading h2 {
+    font-size: 2rem;
+  }
+
+  .filter-panel {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .search-box input,
+  .filter-panel select {
+    min-height: 44px;
+    padding-inline: 12px;
+    border-radius: 10px;
+    font-size: .84rem;
+  }
+
+  .category-filters {
+    gap: 6px;
+  }
+
+  .category-button {
+    padding: 6px 9px;
+    font-size: .7rem;
+  }
+
+  .filter-reset-button {
+    grid-column: auto;
+    justify-self: end;
+    width: auto;
+    min-height: 0;
+    margin-top: 1px;
+    padding: 0;
+    font-size: .74rem;
+  }
+
+  .result-bar {
+    margin: 12px 0 10px;
+    font-size: .8rem;
+  }
+
+  /* ========================================================
+     本棚：スマホは必ず1行3冊
+     --------------------------------------------------------
+     375pxでも横幅に収まるよう、
+     表紙・タイトル・読むボタンだけを中心に表示
+     ======================================================== */
   .book-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
   }
 
   .book-card {
-    border-radius: 12px;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 11px;
+    box-shadow: 0 5px 14px rgba(31, 41, 55, .08);
   }
 
-  .book-cover,
-  .book-cover-image {
-    min-height: 0;
+  .book-card:hover {
+    transform: none;
   }
 
   .book-cover {
+    width: 100%;
+    min-height: 0;
     aspect-ratio: 3 / 4;
+    padding: 0;
+    place-items: stretch;
+  }
+
+  .book-cover::before,
+  .book-cover::after {
+    display: none;
   }
 
   .book-cover-image {
+    display: block;
     width: 100%;
     height: 100%;
+    min-height: 0;
     object-fit: cover;
   }
 
   .book-info {
-    padding: 9px 7px 10px;
+    min-width: 0;
+    padding: 8px 6px 8px;
   }
 
-  .book-meta {
-    gap: 3px;
-    margin-bottom: 5px;
-  }
-
-  .tag {
-    padding: 2px 5px;
-    font-size: .55rem;
-  }
-
-  .book-info h3 {
-    min-height: 2.8em;
-    margin: 0;
-    font-size: .72rem;
-    line-height: 1.4;
-  }
-
+  .book-meta,
   .book-description,
   .book-stats,
   .free-label {
     display: none;
   }
 
+  .book-info h3 {
+    display: -webkit-box;
+    min-height: 2.65em;
+    margin: 0;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    font-size: .68rem;
+    line-height: 1.32;
+    overflow-wrap: anywhere;
+  }
+
   .book-bottom {
-    margin-top: 7px;
+    display: block;
+    margin-top: 6px;
   }
 
   .read-button {
+    display: flex;
     width: 100%;
-    min-height: 30px;
-    padding: 0 5px;
-    border-radius: 8px;
-    font-size: .62rem;
+    min-width: 0;
+    min-height: 28px;
+    padding: 0 3px;
+    border-radius: 7px;
+    font-size: .66rem;
+    line-height: 1;
+  }
+
+  .read-label-full {
+    display: none;
+  }
+
+  .read-label-short {
+    display: inline;
   }
 
   .favorite-button {
-    top: 6px;
-    right: 6px;
-    min-width: 30px;
-    height: 30px;
-    padding: 0 6px;
-    gap: 3px;
+    top: 5px;
+    right: 5px;
+    min-width: 28px;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    gap: 0;
+    border-width: 1px;
   }
 
   .favorite-heart {
@@ -1778,20 +1922,177 @@ body.reader-open { overflow: hidden; }
   }
 
   .favorite-count {
-    font-size: .6rem;
+    display: none;
+  }
+
+  /* ========================================================
+     本を読む方法：1枚ずつ横スライド
+     ======================================================== */
+  .features {
+    padding: 58px 0 62px;
+  }
+
+  .features > .section-heading {
+    padding: 0 18px;
   }
 
   .howto-track {
-    gap: 14px;
-    padding-bottom: 14px;
+    gap: 12px;
+    padding: 2px 18px 16px;
+    scroll-padding-inline: 18px;
   }
 
   .howto-card {
-    flex-basis: calc(100vw - 54px);
-    border-radius: 18px;
+    flex: 0 0 calc(100vw - 56px);
+    scroll-snap-align: start;
+    border-radius: 17px;
+  }
+
+  .howto-image {
+    aspect-ratio: 16 / 9;
   }
 
   .howto-body {
-    padding: 18px;
+    padding: 16px;
+  }
+
+  .howto-body span {
+    font-size: 1.35rem;
+  }
+
+  .howto-body h3 {
+    margin: 5px 0 4px;
+    font-size: 1rem;
+  }
+
+  .howto-body p {
+    font-size: .82rem;
+    line-height: 1.65;
+  }
+
+  /* ========================================================
+     イラスト展示
+     ======================================================== */
+  .gallery-heading {
+    display: block;
+    padding-inline: 18px;
+  }
+
+  .gallery-heading > div:first-child {
+    max-width: none;
+  }
+
+  .gallery-heading p:last-child {
+    font-size: .84rem;
+  }
+
+  .gallery-controls {
+    display: none;
+  }
+
+  .gallery-track {
+    gap: 12px;
+    padding: 4px 18px 18px;
+    scroll-padding-inline: 18px;
+  }
+
+  .gallery-card {
+    flex: 0 0 calc(100vw - 52px);
+  }
+
+  .gallery-image-frame {
+    aspect-ratio: 4 / 3;
+    border-radius: 16px;
+  }
+
+  .gallery-image-frame::after {
+    right: 10px;
+    bottom: 10px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .gallery-caption {
+    padding-top: 10px;
+  }
+
+  /* ========================================================
+     Footer
+     ======================================================== */
+  footer {
+    padding: 36px 18px;
+    font-size: .78rem;
+  }
+
+  /* ========================================================
+     漫画ビューア
+     ======================================================== */
+  .reader-header {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    min-height: 56px;
+    padding: 7px 10px;
+  }
+
+  .reader-back span,
+  .reader-title small {
+    display: none;
+  }
+
+  .reader-page {
+    padding: 0;
+  }
+
+  .reader-page-image {
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+  }
+
+  .reader-nav {
+    display: none;
+  }
+
+  .reader-footer {
+    min-height: 50px;
+    padding: 7px 12px max(7px, env(safe-area-inset-bottom));
+  }
+}
+
+
+/* ==========================================================
+   15-E. かなり小さいスマホ：360px以下
+   ----------------------------------------------------------
+   3列を維持しつつ、さらに少しだけ詰める
+   ========================================================== */
+
+@media (max-width: 360px) {
+
+  .search-section {
+    padding-inline: 10px;
+  }
+
+  .book-grid {
+    gap: 6px;
+  }
+
+  .book-info {
+    padding: 7px 5px;
+  }
+
+  .book-info h3 {
+    font-size: .62rem;
+  }
+
+  .read-button {
+    min-height: 26px;
+    font-size: .61rem;
+  }
+
+  .favorite-button {
+    top: 4px;
+    right: 4px;
+    width: 26px;
+    min-width: 26px;
+    height: 26px;
   }
 }

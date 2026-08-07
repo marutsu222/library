@@ -275,7 +275,8 @@ function renderBooks() {
               class="read-button"
               href="${readerUrl}"
               data-read-id="${escapeHtml(book.id)}">
-              この本を読む
+              <span class="read-label-full">この本を読む</span>
+              <span class="read-label-short" aria-hidden="true">読む</span>
             </a>
           </div>
         </div>
