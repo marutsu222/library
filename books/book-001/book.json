@@ -3,10 +3,10 @@
   "title": "大叙事詩 1話",
   "category": "大叙事詩",
   "readingDirection": "rtl",
-  "cover": "./cover.webp",
+  "cover": "./daijojishi_001_1.webp",
   "pages": [
-    "./001.webp",
-    "./002.webp",
-    "./003.webp"
+    "./daijojishi_001_2.webp",
+    "./daijojishi_001_3.webp",
+    "./daijojishi_001_4.webp"
   ]
 }
