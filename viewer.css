@@ -106,8 +106,9 @@ a {
   padding: 90px 7vw;
   overflow: hidden;
   background:
-    radial-gradient(circle at 85% 20%, rgba(242, 79, 98, 0.17), transparent 28%),
-    linear-gradient(135deg, #fff 0%, #f9f8f3 100%);
+    radial-gradient(circle at 15% 20%, rgba(251, 253, 181, 0.35), transparent 38%),
+    radial-gradient(circle at 90% 15%, rgba(254, 214, 238, 0.45), transparent 35%),
+    linear-gradient(135deg, #ffffff 0%, #fb00ff36 55%, #ffffff 100%);
 }
 
 .hero-copy {
@@ -844,4 +845,305 @@ body.reader-open { overflow: hidden; }
   .reader-page { padding: 6px 0; }
   .reader-nav { display: none; }
   .reader-title small { display: none; }
+}
+
+
+/* ===== イラスト横スライドギャラリー ===== */
+.gallery-section {
+  padding: 96px 0 104px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(196,181,253,.23), transparent 28%),
+    linear-gradient(180deg, #fff 0%, #faf8ff 100%);
+}
+
+.gallery-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 0 6vw;
+  margin-bottom: 30px;
+}
+
+.gallery-heading h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.2;
+}
+
+.gallery-heading p:last-child {
+  margin: 12px 0 0;
+  color: var(--muted);
+}
+
+.gallery-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+.gallery-arrow {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border: 1px solid #e7e2f5;
+  border-radius: 50%;
+  color: #5f3fa5;
+  background: rgba(255,255,255,.94);
+  box-shadow: 0 8px 24px rgba(75,45,130,.10);
+  cursor: pointer;
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.gallery-arrow:hover {
+  color: #fff;
+  border-color: #8b5cf6;
+  background: #8b5cf6;
+}
+
+.gallery-arrow:disabled {
+  opacity: .32;
+  cursor: default;
+}
+
+.gallery-counter {
+  min-width: 62px;
+  color: #6d5a8e;
+  text-align: center;
+  font-size: .88rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.gallery-track {
+  display: flex;
+  gap: 22px;
+  width: 100%;
+  padding: 8px 6vw 24px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  touch-action: pan-x;
+}
+
+.gallery-track::-webkit-scrollbar { display: none; }
+
+.gallery-card {
+  flex: 0 0 clamp(280px, 36vw, 520px);
+  scroll-snap-align: center;
+  margin: 0;
+  cursor: zoom-in;
+}
+
+.gallery-image-frame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #eee9f7;
+  box-shadow: 0 18px 50px rgba(54,35,91,.14);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.gallery-card:hover .gallery-image-frame {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 60px rgba(54,35,91,.20);
+}
+
+.gallery-image-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-image-frame::after {
+  content: "拡大";
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(45,31,72,.66);
+  backdrop-filter: blur(8px);
+  font-size: .75rem;
+  font-weight: 800;
+}
+
+.gallery-caption {
+  padding: 15px 4px 0;
+}
+
+.gallery-caption strong {
+  display: block;
+  color: #2f263d;
+  font-size: 1rem;
+}
+
+.gallery-caption span {
+  display: block;
+  margin-top: 3px;
+  color: #8b8198;
+  font-size: .82rem;
+}
+
+.gallery-loading,
+.gallery-empty {
+  flex: 0 0 100%;
+  min-height: 280px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+}
+
+.gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  min-height: 12px;
+  padding: 0 20px;
+}
+
+.gallery-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #d7cce9;
+  cursor: pointer;
+  transition: width .2s ease, background .2s ease;
+}
+
+.gallery-dot.active {
+  width: 26px;
+  background: #8b5cf6;
+}
+
+.gallery-lightbox {
+  width: min(1100px, calc(100vw - 28px));
+  height: min(92vh, 900px);
+  padding: 0;
+  border: 0;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #17131e;
+  box-shadow: 0 30px 100px rgba(0,0,0,.42);
+}
+
+.gallery-lightbox::backdrop {
+  background: rgba(16,10,24,.84);
+  backdrop-filter: blur(5px);
+}
+
+.gallery-lightbox-figure {
+  display: grid;
+  grid-template-rows: minmax(0,1fr) auto;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.gallery-lightbox-figure img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+
+.gallery-lightbox-figure figcaption {
+  padding: 14px 58px 16px 18px;
+  color: #eee8f6;
+  background: #211a2a;
+  font-size: .88rem;
+}
+
+.gallery-lightbox-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(0,0,0,.45);
+  cursor: pointer;
+  font-size: 1.6rem;
+}
+
+@media (max-width: 780px) {
+  .gallery-section {
+    padding: 68px 0 76px;
+  }
+
+  .gallery-heading {
+    align-items: flex-start;
+    padding: 0 20px;
+    margin-bottom: 22px;
+  }
+
+  .gallery-heading > div:first-child {
+    max-width: 78%;
+  }
+
+  .gallery-heading p:last-child {
+    font-size: .9rem;
+  }
+
+  .gallery-counter { display: none; }
+  .gallery-arrow { width: 40px; height: 40px; }
+
+  .gallery-track {
+    gap: 14px;
+    padding: 6px 20px 20px;
+    scroll-padding-inline: 20px;
+  }
+
+  .gallery-card {
+    flex-basis: calc(100vw - 56px);
+    scroll-snap-align: start;
+  }
+
+  .gallery-image-frame {
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 520px) {
+  .gallery-heading {
+    display: block;
+  }
+
+  .gallery-heading > div:first-child {
+    max-width: none;
+  }
+
+  .gallery-controls {
+    display: none;
+  }
+
+  .gallery-card {
+    flex-basis: calc(100vw - 44px);
+  }
+
+  .gallery-track {
+    padding-inline: 22px;
+    scroll-padding-inline: 22px;
+  }
+
+  .gallery-image-frame {
+    aspect-ratio: 4 / 3;
+  }
 }

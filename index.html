@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./viewer.css">
   <script src="./catalog.js" defer></script>
+  <script src="./gallery.js" defer></script>
 </head>
 <body class="catalog-page">
   <header class="site-header">
@@ -17,7 +18,7 @@
       <span class="logo-mark">心</span><span>情ライブラリ</span>
     </a>
     <nav class="header-nav" aria-label="メインナビゲーション">
-      <a href="#books">本棚</a><a href="#features">閲覧方法</a><a href="#guide">展示</a>
+      <a href="#books">本棚</a><a href="#features">閲覧方法</a><a href="#gallery">ギャラリー</a>
     </nav>
   </header>
 
@@ -25,8 +26,7 @@
     <section class="hero">
       <div class="hero-copy">
         <h1>漫画でめぐる<br><span>心情文化世界</span></h1>
-        <p class="hero-text">少し笑ったり、少し考えたり。
-あなたの心がひと休みできる場所になりますように。</p>
+        <p class="hero-text">少し笑ったり、少し考えたり。ひと休みできる場所になりますように。</p>
       </div>
 <div class="hero-visual">
     <img
@@ -48,7 +48,8 @@
         </label>
         <div id="categoryFilters" class="category-filters" aria-label="カテゴリ絞り込み"></div>
         <select id="sortSelect" aria-label="並び順">
-          <option value="recommended">おすすめ順</option><option value="title">書籍名順</option>
+          <option value="recommended">新しい順</option><option value="title">古い順</option>
+          <option value="title">お気に入りが多い順</option><option value="title">閲覧数が多い順</option>
         </select>
       </div>
       <div class="result-bar">
@@ -62,20 +63,39 @@
     <section class="features" id="features">
       <div class="section-heading light"><p class="eyebrow">ＨＯＷ ＴＯ</p><h2>本を読む方法</h2></div>
       <div class="feature-grid">
-        <article><span>01</span><h3>作品を一覧表示</h3><p>表紙、カテゴリ、対象レベルをカード形式で確認できます。</p></article>
-        <article><span>02</span><h3>横スライドで読む</h3><p>スマートフォンでは指で横にスワイプしてページを移動できます。</p></article>
-        <article><span>03</span><h3>続きから読む</h3><p>最後に開いていたページを端末内に保存します。</p></article>
+        <article><span>01</span><h3>読みたい本を探す</h3><p>＊＊＊</p></article>
+        <article><span>02</span><h3>本をタップする</h3><p>＊＊＊</p></article>
+        <article><span>03</span><h3>スライドして読む</h3><p>＊＊＊</p></article>
       </div>
     </section>
 
-    <section class="guide" id="guide">
-      <div class="section-heading"><p class="eyebrow">ＧＡＬＬＥＲＹ</p><h2>イラスト展示</h2></div>
-      <ol class="steps">
-        <li><span>1</span><div><h3>作品を選ぶ</h3><p>一覧から読みたい作品を選びます。</p></div></li>
-        <li><span>2</span><div><h3>「読む」を押す</h3><p>漫画専用ビューアへ移動します。</p></div></li>
-        <li><span>3</span><div><h3>横にめくる</h3><p>スワイプ、矢印ボタン、キーボードで移動できます。</p></div></li>
-      </ol>
+    <section class="gallery-section" id="gallery">
+      <div class="gallery-heading">
+        <div>
+          <p class="eyebrow">ＧＡＬＬＥＲＹ</p>
+          <h2>イラスト展示</h2>
+          <p>気になる作品を、横にめくりながらゆっくりご覧ください。</p>
+        </div>
+        <div class="gallery-controls" aria-label="ギャラリー操作">
+          <button id="galleryPrev" class="gallery-arrow" type="button" aria-label="前のイラスト">‹</button>
+          <span id="galleryCounter" class="gallery-counter">1 / 1</span>
+          <button id="galleryNext" class="gallery-arrow" type="button" aria-label="次のイラスト">›</button>
+        </div>
+      </div>
+
+      <div id="galleryTrack" class="gallery-track" aria-live="polite">
+        <div class="gallery-loading">イラストを読み込んでいます…</div>
+      </div>
+      <div id="galleryDots" class="gallery-dots" aria-label="イラスト位置"></div>
     </section>
+
+    <dialog id="galleryLightbox" class="gallery-lightbox">
+      <button id="galleryLightboxClose" class="gallery-lightbox-close" type="button" aria-label="閉じる">×</button>
+      <figure class="gallery-lightbox-figure">
+        <img id="galleryLightboxImage" src="" alt="">
+        <figcaption id="galleryLightboxCaption"></figcaption>
+      </figure>
+    </dialog>
   </main>
 
   <footer><div><strong>心情ライブラリ</strong></div><small>© 2026 吉田家庭氏族教会</small></footer>

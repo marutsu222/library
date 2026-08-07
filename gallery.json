@@ -1,0 +1,20 @@
+[
+  {
+    "image": "./assets/gallery/001.webp",
+    "title": "イラスト 01",
+    "caption": "ここに作品のひとこと説明を入れられます。",
+    "alt": "展示イラスト1"
+  },
+  {
+    "image": "./assets/gallery/002.webp",
+    "title": "イラスト 02",
+    "caption": "タイトルや制作メモなどを自由に設定できます。",
+    "alt": "展示イラスト2"
+  },
+  {
+    "image": "./assets/gallery/003.webp",
+    "title": "イラスト 03",
+    "caption": "画像を増やせば自動で横に追加されます。",
+    "alt": "展示イラスト3"
+  }
+]
