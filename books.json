@@ -4,14 +4,64 @@
     "title": "大叙事詩 1話",
     "category": "大叙事詩",
     "level": "基礎",
-    "description": "横スライドで読める漫画ビューアのサンプル作品です。",
-    "details": [
-      "ページ画像はWebP形式",
-      "スマートフォンの横スワイプに対応",
-      "続きから読めるよう読書位置を保存"
-    ],
+    "description": "横スライドで読める漫画作品です。",
     "recommended": 1,
+    "publishedAt": "2026-08-06",
+    "favoriteCount": 15,
+    "views": 120,
     "cover": "./books/book-001/cover.webp",
     "bookData": "./books/book-001/book.json"
+  },
+  {
+    "id": "book-002",
+    "title": "大叙事詩 2話",
+    "category": "大叙事詩",
+    "level": "標準",
+    "description": "横スライドで読める漫画作品です。",
+    "recommended": 2,
+    "publishedAt": "2026-08-05",
+    "favoriteCount": 12,
+    "views": 96,
+    "cover": "./books/book-002/cover.webp",
+    "bookData": "./books/book-002/book.json"
+  },
+  {
+    "id": "book-003",
+    "title": "大叙事詩 3話",
+    "category": "大叙事詩",
+    "level": "実践",
+    "description": "横スライドで読める漫画作品です。",
+    "recommended": 3,
+    "publishedAt": "2026-08-04",
+    "favoriteCount": 9,
+    "views": 72,
+    "cover": "./books/book-003/cover.webp",
+    "bookData": "./books/book-003/book.json"
+  },
+  {
+    "id": "book-004",
+    "title": "心情物語 1",
+    "category": "心情物語",
+    "level": "基礎",
+    "description": "横スライドで読める漫画作品です。",
+    "recommended": 4,
+    "publishedAt": "2026-08-03",
+    "favoriteCount": 6,
+    "views": 48,
+    "cover": "./books/book-004/cover.webp",
+    "bookData": "./books/book-004/book.json"
+  },
+  {
+    "id": "book-005",
+    "title": "心情物語 2",
+    "category": "心情物語",
+    "level": "標準",
+    "description": "横スライドで読める漫画作品です。",
+    "recommended": 5,
+    "publishedAt": "2026-08-02",
+    "favoriteCount": 3,
+    "views": 24,
+    "cover": "./books/book-005/cover.webp",
+    "bookData": "./books/book-005/book.json"
   }
 ]

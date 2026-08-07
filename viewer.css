@@ -1,3 +1,36 @@
+/* ==========================================================
+   viewer.css / 心情ライブラリ
+
+   目次
+   01. 共通設定
+   02. ヘッダー
+   03. トップ（Hero）
+   04. 本棚・検索
+   05. 書籍カード
+   06. 本を読む方法
+   07. フッター
+   08. 漫画ビューア
+   09. 画像漫画向け調整
+   10. 一覧ページ / 独立ビューア補助
+   11. イラストギャラリー
+   12. レスポンシブ
+
+   対応ファイル
+   - index.html
+   - viewer.html
+   - catalog.js
+   - gallery.js
+   - viewer.js
+========================================================== */
+
+/* ==========================================================
+   03-A. トップ右側のキャラクター画像
+   ----------------------------------------------------------
+   index.html
+   <div class="hero-visual">
+     <img class="hero-character">
+   ========================================================== */
+
 .hero-visual{
     display:flex;
     justify-content:center;
@@ -20,6 +53,12 @@
         transform:translateY(-10px);
     }
 }
+
+/* ==========================================================
+   01. 共通設定
+   ----------------------------------------------------------
+   サイト全体の基本設定・色・フォント・リンク・フォーム
+   ========================================================== */
 
 * {
   box-sizing: border-box;
@@ -60,6 +99,15 @@ a {
   text-decoration: none;
 }
 
+/* ==========================================================
+   02. ヘッダー
+   ----------------------------------------------------------
+   index.html
+   <header class="site-header">
+   ・ロゴ
+   ・上部ナビゲーション
+   ========================================================== */
+
 .site-header {
   position: sticky;
   top: 0;
@@ -98,6 +146,18 @@ a {
   font-size: 0.94rem;
   font-weight: 700;
 }
+
+/* ==========================================================
+   03. トップ（Hero）
+   ----------------------------------------------------------
+   index.html
+   <section class="hero">
+
+   ・「漫画でめぐる 心情文化世界」
+   ・説明文
+   ・背景
+   ・キャラクター画像
+   ========================================================== */
 
 .hero {
   display: grid;
@@ -209,6 +269,19 @@ a {
 .b4 { top: 244px; right: 35px; transform: rotate(3deg); }
 .b5 { top: 318px; right: -40px; transform: rotate(13deg); }
 
+/* ==========================================================
+   04. 本棚・検索エリア
+   ----------------------------------------------------------
+   index.html
+   <section class="search-section" id="books">
+
+   ・見出し
+   ・検索ボックス
+   ・カテゴリ絞り込み
+   ・並び替え
+   ・検索結果件数
+   ========================================================== */
+
 .search-section,
 .guide {
   padding: 100px 6vw;
@@ -295,6 +368,17 @@ a {
   cursor: pointer;
   font-weight: 800;
 }
+
+/* ==========================================================
+   05. 書籍カード一覧
+   ----------------------------------------------------------
+   index.html / catalog.js
+
+   <div id="bookGrid" class="book-grid">
+
+   catalog.js が books.json を読み込み、
+   .book-card を自動生成します。
+   ========================================================== */
 
 .book-grid {
   display: grid;
@@ -436,6 +520,15 @@ a {
   color: var(--muted);
 }
 
+/* ==========================================================
+   06. 本を読む方法
+   ----------------------------------------------------------
+   index.html
+   <section class="features" id="features">
+
+   ・01 / 02 / 03 の説明カード
+   ========================================================== */
+
 .features {
   padding: 100px 6vw;
   color: #fff;
@@ -510,6 +603,13 @@ a {
 .steps p {
   color: var(--muted);
 }
+
+/* ==========================================================
+   07. フッター
+   ----------------------------------------------------------
+   index.html
+   <footer>
+   ========================================================== */
 
 footer {
   display: flex;
@@ -606,6 +706,10 @@ footer p {
   clip: rect(0, 0, 0, 0);
 }
 
+/* ==========================================================
+   12-A. レスポンシブ：タブレット（1050px以下）
+   ========================================================== */
+
 @media (max-width: 1050px) {
   .book-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -615,6 +719,10 @@ footer p {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================
+   12-B. レスポンシブ：タブレット / スマホ（780px以下）
+   ========================================================== */
 
 @media (max-width: 780px) {
   .header-nav {
@@ -648,6 +756,10 @@ footer p {
     min-height: 280px;
   }
 }
+
+/* ==========================================================
+   12-C. レスポンシブ：スマホ（520px以下）
+   ========================================================== */
 
 @media (max-width: 520px) {
   .site-header {
@@ -702,7 +814,11 @@ footer p {
 }
 
 
-/* ===== 電子書籍ビューア ===== */
+/* ==========================================================
+   08. 漫画ビューア（旧ダイアログ形式）
+   ----------------------------------------------------------
+   漫画ページの横スライド、ページ送り、進捗表示など
+   ========================================================== */
 .reader-dialog {
   width: min(1180px, 100vw);
   height: min(820px, 100vh);
@@ -773,7 +889,13 @@ footer p {
   .reader-footer { min-height:54px; padding:8px 12px; }
 }
 
-/* ===== 画像漫画向け調整 ===== */
+/* ==========================================================
+   09. 画像漫画向け調整
+   ----------------------------------------------------------
+   ・漫画ページ画像
+   ・表紙画像
+   ・スマホ時の画像表示
+   ========================================================== */
 .book-cover-image {
   width: 100%;
   height: 100%;
@@ -808,7 +930,16 @@ body.reader-open { overflow: hidden; }
   .reader-page-image { width: 100%; height: 100%; box-shadow: none; }
 }
 
-/* ===== Separate catalog / standalone viewer additions ===== */
+/* ==========================================================
+   10. 一覧ページ / 独立ビューア補助
+   ----------------------------------------------------------
+   index.html / viewer.html
+
+   ・「無料で読む」
+   ・「この本を読む」ボタン
+   ・viewer.html の全画面レイアウト
+   ・横スライド漫画ビューア
+   ========================================================== */
 .hero h1 span { color: var(--accent); }
 .free-label { color: var(--accent-dark); font-size: .82rem; font-weight: 900; }
 .book-cover { display: grid; min-height: 300px; place-items: center; overflow: hidden; background: #eceff3; }
@@ -848,7 +979,16 @@ body.reader-open { overflow: hidden; }
 }
 
 
-/* ===== イラスト横スライドギャラリー ===== */
+/* ==========================================================
+   11. イラスト横スライドギャラリー
+   ----------------------------------------------------------
+   index.html / gallery.js / gallery.json
+
+   ・横スワイプ
+   ・PC左右矢印
+   ・現在位置ドット
+   ・クリック / タップで拡大表示
+   ========================================================== */
 .gallery-section {
   padding: 96px 0 104px;
   overflow: hidden;
@@ -1145,5 +1285,513 @@ body.reader-open { overflow: hidden; }
 
   .gallery-image-frame {
     aspect-ratio: 4 / 3;
+  }
+}
+
+/* ==========================================================
+   13. 2026-08 UI更新
+   ----------------------------------------------------------
+   対応内容
+   ① PC / スマホ共通の三本線メニュー
+   ② Hero と LIBRARY の間隔を約半分に調整
+   ③ 書籍のお気に入りボタン
+   ④ 並び替えUI
+   ⑤ 「条件をリセット」を検索枠内へ移動
+   ========================================================== */
+
+
+/* ==========================================================
+   13-A. 三本線メニュー
+   ----------------------------------------------------------
+   index.html
+   .header-menu-wrap
+   ├─ .menu-toggle
+   └─ .header-menu
+   ========================================================== */
+
+.header-nav {
+  display: none;
+}
+
+.header-menu-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.menu-toggle {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  padding: 11px;
+  place-content: center;
+  gap: 5px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: rgba(255,255,255,.96);
+  box-shadow: 0 8px 24px rgba(31,41,55,.08);
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--ink);
+  transition: transform .2s ease, opacity .2s ease;
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.header-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 50;
+  display: grid;
+  min-width: 210px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(255,255,255,.98);
+  box-shadow: 0 20px 55px rgba(31,41,55,.16);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity .18s ease, transform .18s ease, visibility .18s ease;
+}
+
+.header-menu.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.header-menu a {
+  display: block;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-weight: 800;
+}
+
+.header-menu a:hover,
+.header-menu a:focus-visible {
+  color: var(--accent-dark);
+  background: #fff0f2;
+}
+
+
+/* ==========================================================
+   13-B. Hero と LIBRARY の間隔
+   ----------------------------------------------------------
+   PC：Hero下 90px → 45px
+       LIBRARY上 100px → 50px
+
+   スマホでも同様に約半分へ調整
+   ========================================================== */
+
+.hero {
+  padding-bottom: 45px;
+}
+
+.search-section {
+  padding-top: 50px;
+}
+
+
+/* ==========================================================
+   13-C. 検索枠 / 条件リセット
+   ----------------------------------------------------------
+   index.html
+   .filter-panel の中に resetButton を配置
+   ========================================================== */
+
+.filter-panel {
+  grid-template-columns: minmax(260px, 1fr) 2fr auto auto;
+}
+
+.filter-reset-button {
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1px solid #f3cbd1;
+  border-radius: 12px;
+  color: var(--accent-dark);
+  background: #fff7f8;
+  cursor: pointer;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.filter-reset-button:hover {
+  border-color: var(--accent);
+  background: #fff0f2;
+}
+
+
+/* ==========================================================
+   13-D. お気に入り
+   ----------------------------------------------------------
+   catalog.js が書籍カード内へ生成
+
+   .favorite-button
+   .favorite-count
+   ========================================================== */
+
+.book-card {
+  position: relative;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 4;
+  display: inline-flex;
+  min-width: 46px;
+  height: 42px;
+  padding: 0 11px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid rgba(255,255,255,.7);
+  border-radius: 999px;
+  color: #6b7280;
+  background: rgba(255,255,255,.94);
+  box-shadow: 0 8px 24px rgba(31,41,55,.12);
+  cursor: pointer;
+  font-weight: 900;
+  backdrop-filter: blur(8px);
+}
+
+.favorite-button:hover {
+  color: var(--accent);
+}
+
+.favorite-button.active {
+  color: #fff;
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.favorite-heart {
+  font-size: 1.12rem;
+  line-height: 1;
+}
+
+.favorite-count {
+  min-width: 1ch;
+  font-size: .78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.book-stats {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  color: #8a8f99;
+  font-size: .76rem;
+  font-weight: 700;
+}
+
+
+/* ==========================================================
+   13-E. 追加レスポンシブ
+   ========================================================== */
+
+@media (max-width: 1050px) {
+  .filter-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-reset-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 780px) {
+  .hero {
+    padding-bottom: 22px;
+  }
+
+  .search-section {
+    padding-top: 36px;
+  }
+
+  .menu-toggle {
+    width: 44px;
+    height: 44px;
+  }
+
+  .header-menu {
+    position: fixed;
+    top: 70px;
+    left: 16px;
+    right: 16px;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero {
+    padding-bottom: 15px;
+  }
+
+  .search-section {
+    padding-top: 36px;
+  }
+
+  .favorite-button {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+/* ==========================================================
+   14. 2026-08 追加調整
+   ----------------------------------------------------------
+   ① 条件リセットを赤文字だけ・右端に
+   ② 5冊表示用のカード調整
+   ③ スマホは1行3冊
+   ④ 「本を読む方法」を画像付き横スライド化
+   ⑤ ギャラリーの「拡大」を虫眼鏡＋に変更
+   ========================================================== */
+
+
+/* ==========================================================
+   14-A. 条件リセット
+   ========================================================== */
+
+.filter-panel {
+  position: relative;
+}
+
+.filter-reset-button {
+  grid-column: 1 / -1;
+  justify-self: end;
+  min-height: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--accent-dark);
+  background: transparent;
+  box-shadow: none;
+  font-size: .86rem;
+  font-weight: 800;
+}
+
+.filter-reset-button:hover {
+  border: 0;
+  color: var(--accent);
+  background: transparent;
+  text-decoration: underline;
+}
+
+
+/* ==========================================================
+   14-B. 本を読む方法：横スライド
+   ----------------------------------------------------------
+   index.html
+   .howto-track
+      └─ .howto-card
+          ├─ .howto-image
+          └─ .howto-body
+   ========================================================== */
+
+.features {
+  overflow: hidden;
+}
+
+.howto-track {
+  display: flex;
+  gap: 22px;
+  width: 100%;
+  padding: 4px 0 18px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x;
+}
+
+.howto-track::-webkit-scrollbar {
+  display: none;
+}
+
+.howto-card {
+  flex: 0 0 clamp(300px, 31vw, 430px);
+  overflow: hidden;
+  scroll-snap-align: start;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 22px;
+  background: rgba(255,255,255,.06);
+}
+
+.howto-image {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: rgba(255,255,255,.08);
+}
+
+.howto-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.howto-body {
+  padding: 24px;
+}
+
+.howto-body span {
+  color: #ff8a97;
+  font-size: 1.7rem;
+  font-weight: 900;
+}
+
+.howto-body h3 {
+  margin: 8px 0 6px;
+  font-size: 1.25rem;
+}
+
+.howto-body p {
+  margin: 0;
+  color: #cbd5e1;
+}
+
+
+/* ==========================================================
+   14-C. ギャラリー拡大アイコン
+   ----------------------------------------------------------
+   「拡大」文字ではなく、虫眼鏡＋の記号
+   ========================================================== */
+
+.gallery-image-frame::after {
+  content: "⌕+";
+  display: grid;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+
+/* ==========================================================
+   14-D. スマホ：本を1行3冊
+   ----------------------------------------------------------
+   520px以下ではカードを3列表示。
+   小さい画面でも見やすいよう説明文などを圧縮。
+   ========================================================== */
+
+@media (max-width: 520px) {
+  .book-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .book-card {
+    border-radius: 12px;
+  }
+
+  .book-cover,
+  .book-cover-image {
+    min-height: 0;
+  }
+
+  .book-cover {
+    aspect-ratio: 3 / 4;
+  }
+
+  .book-cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .book-info {
+    padding: 9px 7px 10px;
+  }
+
+  .book-meta {
+    gap: 3px;
+    margin-bottom: 5px;
+  }
+
+  .tag {
+    padding: 2px 5px;
+    font-size: .55rem;
+  }
+
+  .book-info h3 {
+    min-height: 2.8em;
+    margin: 0;
+    font-size: .72rem;
+    line-height: 1.4;
+  }
+
+  .book-description,
+  .book-stats,
+  .free-label {
+    display: none;
+  }
+
+  .book-bottom {
+    margin-top: 7px;
+  }
+
+  .read-button {
+    width: 100%;
+    min-height: 30px;
+    padding: 0 5px;
+    border-radius: 8px;
+    font-size: .62rem;
+  }
+
+  .favorite-button {
+    top: 6px;
+    right: 6px;
+    min-width: 30px;
+    height: 30px;
+    padding: 0 6px;
+    gap: 3px;
+  }
+
+  .favorite-heart {
+    font-size: .9rem;
+  }
+
+  .favorite-count {
+    font-size: .6rem;
+  }
+
+  .howto-track {
+    gap: 14px;
+    padding-bottom: 14px;
+  }
+
+  .howto-card {
+    flex-basis: calc(100vw - 54px);
+    border-radius: 18px;
+  }
+
+  .howto-body {
+    padding: 18px;
   }
 }

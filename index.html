@@ -17,9 +17,27 @@
     <a class="logo" href="#top" aria-label="ページ上部へ">
       <span class="logo-mark">心</span><span>情ライブラリ</span>
     </a>
-    <nav class="header-nav" aria-label="メインナビゲーション">
-      <a href="#books">本棚</a><a href="#features">閲覧方法</a><a href="#gallery">ギャラリー</a>
-    </nav>
+
+    <!-- ===== 共通メニュー：PC / スマホともに三本線ボタン ===== -->
+    <div class="header-menu-wrap">
+      <button
+        id="menuToggle"
+        class="menu-toggle"
+        type="button"
+        aria-label="メニューを開く"
+        aria-expanded="false"
+        aria-controls="headerMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav id="headerMenu" class="header-menu" aria-label="メインナビゲーション">
+        <a href="#books">本棚</a>
+        <a href="#features">閲覧方法</a>
+        <a href="#gallery">ギャラリー</a>
+      </nav>
+    </div>
   </header>
 
   <main id="top">
@@ -46,26 +64,67 @@
           <span class="visually-hidden">書籍を検索</span>
           <input id="searchInput" type="search" placeholder="作品名・カテゴリ・キーワードで検索">
         </label>
+
         <div id="categoryFilters" class="category-filters" aria-label="カテゴリ絞り込み"></div>
+
         <select id="sortSelect" aria-label="並び順">
-          <option value="recommended">新しい順</option><option value="title">古い順</option>
-          <option value="title">お気に入りが多い順</option><option value="title">閲覧数が多い順</option>
+          <option value="newest">新しい順</option>
+          <option value="oldest">古い順</option>
+          <option value="favorites">お気に入りが多い順</option>
+          <option value="views">閲覧数が多い順</option>
         </select>
+
+        <button id="resetButton" class="filter-reset-button" type="button">条件をリセット</button>
       </div>
+
       <div class="result-bar">
         <p><strong id="resultCount">0</strong> 冊を表示</p>
-        <button id="resetButton" class="text-button" type="button">条件をリセット</button>
       </div>
       <div id="bookGrid" class="book-grid" aria-live="polite"></div>
       <p id="catalogMessage" class="empty-message">書籍情報を読み込んでいます…</p>
     </section>
 
+    <!-- ===== 本を読む方法：画像付き横スライド ===== -->
     <section class="features" id="features">
-      <div class="section-heading light"><p class="eyebrow">ＨＯＷ ＴＯ</p><h2>本を読む方法</h2></div>
-      <div class="feature-grid">
-        <article><span>01</span><h3>読みたい本を探す</h3><p>＊＊＊</p></article>
-        <article><span>02</span><h3>本をタップする</h3><p>＊＊＊</p></article>
-        <article><span>03</span><h3>スライドして読む</h3><p>＊＊＊</p></article>
+      <div class="section-heading light">
+        <p class="eyebrow">ＨＯＷ ＴＯ</p>
+        <h2>本を読む方法</h2>
+        <p>横にスライドして、読み方を確認できます。</p>
+      </div>
+
+      <div class="howto-track" aria-label="本を読む方法">
+        <article class="howto-card">
+          <div class="howto-image">
+            <img src="./assets/howto/01.webp" alt="読みたい本を探すイメージ" loading="lazy" decoding="async">
+          </div>
+          <div class="howto-body">
+            <span>01</span>
+            <h3>読みたい本を探す</h3>
+            <p>本棚から気になる作品を選びます。</p>
+          </div>
+        </article>
+
+        <article class="howto-card">
+          <div class="howto-image">
+            <img src="./assets/howto/02.webp" alt="本をタップするイメージ" loading="lazy" decoding="async">
+          </div>
+          <div class="howto-body">
+            <span>02</span>
+            <h3>本をタップする</h3>
+            <p>「この本を読む」を押してビューアを開きます。</p>
+          </div>
+        </article>
+
+        <article class="howto-card">
+          <div class="howto-image">
+            <img src="./assets/howto/03.webp" alt="横にスライドして読むイメージ" loading="lazy" decoding="async">
+          </div>
+          <div class="howto-body">
+            <span>03</span>
+            <h3>スライドして読む</h3>
+            <p>スマホでは指で横にスワイプして読み進められます。</p>
+          </div>
+        </article>
       </div>
     </section>
 
