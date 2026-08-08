@@ -2112,3 +2112,26 @@ body.reader-open { overflow: hidden; }
     object-fit: contain;
   }
 }
+@media (max-width: 520px) {
+  .howto-card {
+    min-width: 0;
+  }
+
+  .howto-image {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: auto;
+    margin: 0;
+    aspect-ratio: 9 / 16;
+  }
+
+  .howto-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+}
