@@ -1331,7 +1331,7 @@ body.reader-open { overflow: hidden; }
   scroll-behavior: smooth;
   scrollbar-width: none;
   overscroll-behavior-x: contain;
-  touch-action: pan-x;
+  touch-action: pan-x pan-y;
 }
 
 .howto-track::-webkit-scrollbar {
