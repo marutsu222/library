@@ -3,9 +3,7 @@
     "id": "book-001",
     "title": "韓民族選民大叙事詩 第1話「東夷族」",
     "category": ["大叙事詩"],
-    "description": "横スライドで読める漫画作品です。",
-    "recommended": 1,
-    "publishedAt": "2026-08-06",
+    "publishedAt": "2026-08-09",
     "cover": "./books/book-001/cover.webp",
     "bookData": "./books/book-001/book.json"
   },
@@ -13,10 +11,8 @@
     "id": "magazine-001",
     "title": "Youth 2025年まとめ",
     "category": ["Youth", "4コマ"],
-    "description": "横スライドで読める漫画作品です。",
-    "recommended": 2,
     "publishedAt": "2026-08-05",
-    "cover": "./books/book-002/cover.webp",
-    "bookData": "./books/book-002/book.json"
+    "cover": "./books/magazine-001/cover.webp",
+    "bookData": "./books/magazine-001/book.json"
   }
 ]
