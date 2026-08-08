@@ -1932,7 +1932,6 @@ body.reader-open { overflow: hidden; }
 /* ==========================================================
    2026-08-08 ビューア操作
    ・中央タップで上下バーを表示／非表示
-   ・ダブルタップでタップ位置を中心に拡大
    ・左右端タップでページ移動（判定はviewer.js）
    ========================================================== */
 .standalone-reader {
@@ -1971,21 +1970,6 @@ body.reader-open { overflow: hidden; }
 .standalone-reader.controls-hidden .reader-nav {
   opacity: 0;
   pointer-events: none;
-}
-
-.reader-page.is-zoomed {
-  overflow: auto;
-  place-items: start;
-  scroll-snap-align: none;
-  touch-action: pan-x pan-y;
-}
-
-.reader-page.is-zoomed .reader-page-image {
-  width: 250%;
-  max-width: none;
-  height: 250%;
-  max-height: none;
-  object-fit: contain;
 }
 
 @media (hover: none), (pointer: coarse) {
