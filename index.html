@@ -141,6 +141,7 @@
 
       let timer = 0;
       let stoppedByUser = false;
+      let galleryIsVisible = false;
 
       const stopAutoSlide = () => {
         stoppedByUser = true;
@@ -151,14 +152,23 @@
       const startAutoSlide = () => {
         if (stoppedByUser || timer || track.querySelectorAll(".gallery-card").length < 2) return;
         timer = window.setInterval(() => {
-          if (document.hidden) return;
-          if (next.disabled) {
-            document.querySelector("#galleryDots .gallery-dot")?.click();
-          } else {
-            next.click();
-          }
+          if (document.hidden || !galleryIsVisible) return;
+
+          const cards = [...track.querySelectorAll(".gallery-card")];
+          const current = cards.reduce((nearest, card, index) => {
+            const distance = Math.abs(card.offsetLeft - track.scrollLeft);
+            return distance < nearest.distance ? { index, distance } : nearest;
+          }, { index: 0, distance: Infinity }).index;
+          const target = cards[(current + 1) % cards.length];
+
+          track.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
         }, 3500);
       };
+
+      const visibilityObserver = new IntersectionObserver(entries => {
+        galleryIsVisible = entries[0]?.isIntersecting === true;
+      }, { threshold: 0.2 });
+      visibilityObserver.observe(document.getElementById("gallery"));
 
       ["pointerdown", "touchstart", "wheel", "keydown"].forEach(type => {
         track.addEventListener(type, stopAutoSlide, { passive: true });
