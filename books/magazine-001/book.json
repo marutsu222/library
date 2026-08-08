@@ -1,0 +1,13 @@
+{
+  "id": "magazine-001",
+  "title": "Youth 2025年まとめ",
+  "category": ["Youth", "4コマ"],
+  "cover": "./cover.webp",
+  "readingDirection": "ltr",
+  "pages": [
+    "./magazine_001_1.webp",
+    "./magazine_001_2.webp",
+    "./magazine_001_3.webp",
+    "./magazine_001_4.webp"
+  ]
+}
