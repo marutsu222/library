@@ -81,7 +81,7 @@
       <p id="catalogMessage" class="empty-message">書籍情報を読み込んでいます…</p>
     </section>
 
-    <!-- ===== 本を読む方法：画像付き横スライド ===== -->
+    <!-- ===== 本を読む方法：説明＋GIF横スライド ===== -->
     <section class="features" id="features">
       <div class="section-heading light">
         <p class="eyebrow">ＨＯＷ ＴＯ</p>
@@ -90,13 +90,13 @@
 
       <div class="howto-track" aria-label="本を読む方法">
         <article class="howto-card">
-          <div class="howto-image">
-            <img src="./assets/howto/01.webp" alt="読みたい本を探すイメージ" loading="lazy" decoding="async">
-          </div>
           <div class="howto-body">
             <span>01</span>
             <h3>読みたい本を探す</h3>
             <p>本棚から気になる作品を選びます。</p>
+          </div>
+          <div class="howto-image">
+            <img src="./assets/howto/01.gif" alt="読みたい本を探す操作動画" loading="lazy" decoding="async">
           </div>
         </article>
                
@@ -133,5 +133,46 @@
   </main>
 
   <footer><div><strong>心情ライブラリ</strong></div><small>© 2026 吉田家庭氏族教会</small></footer>
+  <script>
+    (() => {
+      const track = document.getElementById("galleryTrack");
+      const next = document.getElementById("galleryNext");
+      if (!track || !next) return;
+
+      let timer = 0;
+      let stoppedByUser = false;
+
+      const stopAutoSlide = () => {
+        stoppedByUser = true;
+        window.clearInterval(timer);
+        timer = 0;
+      };
+
+      const startAutoSlide = () => {
+        if (stoppedByUser || timer || track.querySelectorAll(".gallery-card").length < 2) return;
+        timer = window.setInterval(() => {
+          if (document.hidden) return;
+          if (next.disabled) {
+            document.querySelector("#galleryDots .gallery-dot")?.click();
+          } else {
+            next.click();
+          }
+        }, 3500);
+      };
+
+      ["pointerdown", "touchstart", "wheel", "keydown"].forEach(type => {
+        track.addEventListener(type, stopAutoSlide, { passive: true });
+      });
+      track.addEventListener("focusin", stopAutoSlide);
+      document.getElementById("galleryPrev")?.addEventListener("click", stopAutoSlide);
+      next.addEventListener("click", event => {
+        if (event.isTrusted) stopAutoSlide();
+      });
+
+      const observer = new MutationObserver(startAutoSlide);
+      observer.observe(track, { childList: true });
+      window.addEventListener("load", startAutoSlide);
+    })();
+  </script>
 </body>
 </html>

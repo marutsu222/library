@@ -42,7 +42,7 @@
     max-height:none;
     object-fit:contain;
     filter:drop-shadow(0 20px 40px rgba(0,0,0,.18));
-    animation:float 4s ease-in-out infinite;
+    animation:float 2s ease-in-out infinite;
 }
 
 @keyframes float{
@@ -1930,6 +1930,68 @@ body.reader-open { overflow: hidden; }
   }
 }
 
+/* ==========================================================
+   17. 2026-08-08 修正
+   ・スマホの本棚を1行2冊
+   ・本を読む方法は説明を上、GIFを下
+   ・ギャラリーの拡大表示は＋のみ
+   ・漫画全体をPC画面内に収め、進捗は右始まり
+   ========================================================== */
+
+@media (max-width: 520px) {
+  .book-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .book-info h3 {
+    font-size: .76rem;
+  }
+}
+
+.howto-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.howto-body {
+  order: 1;
+}
+
+.howto-image {
+  order: 2;
+}
+
+.howto-image img {
+  object-fit: contain;
+}
+
+.gallery-image-frame::after {
+  content: "+";
+  letter-spacing: 0;
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.reader-progress {
+  direction: rtl;
+}
+
+@media (min-width: 521px) {
+  .reader-page {
+    box-sizing: border-box;
+    padding: 12px 64px;
+  }
+
+  .reader-page-image {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}
+
 
 /* ==========================================================
    15-E. かなり小さいスマホ：360px以下
@@ -2025,5 +2087,29 @@ body.reader-open { overflow: hidden; }
 
   .reader-page {
     padding: 0;
+  }
+}
+
+/* 2026-08-08 最終上書き（重複する旧指定より後に置く） */
+.book-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.reader-progress {
+  direction: rtl;
+}
+
+@media (min-width: 521px) {
+  .reader-page {
+    box-sizing: border-box;
+    padding: 12px 64px;
+  }
+
+  .reader-page-image {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
   }
 }
