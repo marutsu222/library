@@ -14,6 +14,11 @@ const elements = {
 let currentBook = null;
 let currentPage = 0;
 let scrollTimer = 0;
+let tapTimer = 0;
+let lastTap = null;
+let pointerStart = null;
+const DOUBLE_TAP_DELAY = 300;
+const TAP_MOVE_LIMIT = 14;
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>'"]/g, char => ({
@@ -75,6 +80,7 @@ function updateControls() {
 
 function goToPage(index, behavior = "smooth") {
   if (!currentBook) return;
+  resetZoom();
   currentPage = Math.max(0, Math.min(index, currentBook.pages.length - 1));
   const page = elements.pages.children[currentPage];
   if (page) page.scrollIntoView({ behavior, inline: "start", block: "nearest" });
@@ -85,7 +91,7 @@ function renderBook() {
   const title = currentBook.title || "漫画";
   document.title = `${title}｜吉田図書館`;
   elements.title.textContent = title;
-  elements.hint.textContent = "左へスワイプして読めます・2本指で拡大できます";
+  elements.hint.textContent = "中央タップでメニュー・ダブルタップで拡大";
   elements.pages.dataset.direction = "rtl";
   elements.pages.innerHTML = currentBook.pages.map((src, index) => `
     <section class="reader-page" aria-label="${index + 1}ページ目">
@@ -98,6 +104,59 @@ function renderBook() {
   currentPage = Number.isInteger(saved) ? Math.min(Math.max(saved, 0), currentBook.pages.length - 1) : 0;
   requestAnimationFrame(() => goToPage(currentPage, "auto"));
   elements.app.setAttribute("aria-busy", "false");
+}
+
+function currentPageElement() {
+  return elements.pages.children[currentPage] || null;
+}
+
+function resetZoom() {
+  elements.pages.querySelectorAll(".reader-page.is-zoomed").forEach(page => {
+    page.classList.remove("is-zoomed");
+    page.style.removeProperty("--zoom-x");
+    page.style.removeProperty("--zoom-y");
+  });
+}
+
+function toggleZoom(clientX, clientY) {
+  const page = currentPageElement();
+  if (!page) return;
+
+  if (page.classList.contains("is-zoomed")) {
+    resetZoom();
+    return;
+  }
+
+  resetZoom();
+  const rect = page.getBoundingClientRect();
+  const x = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+  const y = Math.max(0, Math.min(100, ((clientY - rect.top) / rect.height) * 100));
+  page.style.setProperty("--zoom-x", `${x}%`);
+  page.style.setProperty("--zoom-y", `${y}%`);
+  page.classList.add("is-zoomed");
+  requestAnimationFrame(() => {
+    page.scrollLeft = (page.scrollWidth - page.clientWidth) * (x / 100);
+    page.scrollTop = (page.scrollHeight - page.clientHeight) * (y / 100);
+  });
+}
+
+function toggleControls() {
+  const hidden = elements.app.classList.toggle("controls-hidden");
+  elements.app.setAttribute("data-controls-hidden", String(hidden));
+}
+
+function handleSingleTap(clientX) {
+  const rect = elements.pages.getBoundingClientRect();
+  const position = (clientX - rect.left) / rect.width;
+
+  // 右開き：右端が前ページ、左端が次ページ
+  if (position <= 0.25) {
+    goToPage(currentPage + 1);
+  } else if (position >= 0.75) {
+    goToPage(currentPage - 1);
+  } else {
+    toggleControls();
+  }
 }
 
 function showError(error) {
@@ -129,11 +188,48 @@ elements.pages.addEventListener("scroll", () => {
     updateControls();
   }, 80);
 }, { passive: true });
+
+elements.pages.addEventListener("pointerdown", event => {
+  if (event.pointerType === "mouse" && event.button !== 0) return;
+  pointerStart = { x: event.clientX, y: event.clientY, id: event.pointerId };
+}, { passive: true });
+
+elements.pages.addEventListener("pointerup", event => {
+  if (!pointerStart || pointerStart.id !== event.pointerId) return;
+  const moved = Math.hypot(event.clientX - pointerStart.x, event.clientY - pointerStart.y);
+  pointerStart = null;
+  if (moved > TAP_MOVE_LIMIT || event.target.closest("button, a, input")) return;
+
+  const now = performance.now();
+  const isDoubleTap = lastTap &&
+    now - lastTap.time <= DOUBLE_TAP_DELAY &&
+    Math.hypot(event.clientX - lastTap.x, event.clientY - lastTap.y) <= 36;
+
+  if (isDoubleTap) {
+    clearTimeout(tapTimer);
+    tapTimer = 0;
+    lastTap = null;
+    toggleZoom(event.clientX, event.clientY);
+    return;
+  }
+
+  lastTap = { time: now, x: event.clientX, y: event.clientY };
+  clearTimeout(tapTimer);
+  tapTimer = setTimeout(() => {
+    handleSingleTap(event.clientX);
+    lastTap = null;
+    tapTimer = 0;
+  }, DOUBLE_TAP_DELAY);
+}, { passive: true });
+
+elements.pages.addEventListener("pointercancel", () => { pointerStart = null; }, { passive: true });
+elements.pages.addEventListener("dragstart", event => event.preventDefault());
 document.addEventListener("keydown", event => {
   if (event.key === "ArrowLeft") goToPage(currentPage + 1);
   if (event.key === "ArrowRight") goToPage(currentPage - 1);
   if (event.key === "Home") goToPage(0);
   if (event.key === "End" && currentBook) goToPage(currentBook.pages.length - 1);
+  if (event.key === "Escape") resetZoom();
 });
 window.addEventListener("resize", () => { if (currentBook) goToPage(currentPage, "auto"); });
 

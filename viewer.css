@@ -1930,6 +1930,71 @@ body.reader-open { overflow: hidden; }
 }
 
 /* ==========================================================
+   2026-08-08 ビューア操作
+   ・中央タップで上下バーを表示／非表示
+   ・ダブルタップでタップ位置を中心に拡大
+   ・左右端タップでページ移動（判定はviewer.js）
+   ========================================================== */
+.standalone-reader {
+  transition: grid-template-rows .22s ease;
+}
+
+.reader-header,
+.reader-footer,
+.reader-nav {
+  transition: opacity .18s ease, transform .22s ease;
+}
+
+.standalone-reader.controls-hidden {
+  grid-template-rows: 0 minmax(0, 1fr) 0;
+}
+
+.standalone-reader.controls-hidden .reader-header,
+.standalone-reader.controls-hidden .reader-footer {
+  min-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.standalone-reader.controls-hidden .reader-header {
+  transform: translateY(-100%);
+}
+
+.standalone-reader.controls-hidden .reader-footer {
+  transform: translateY(100%);
+}
+
+.standalone-reader.controls-hidden .reader-nav {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.reader-page.is-zoomed {
+  overflow: auto;
+  place-items: start;
+  scroll-snap-align: none;
+  touch-action: pan-x pan-y;
+}
+
+.reader-page.is-zoomed .reader-page-image {
+  width: 250%;
+  max-width: none;
+  height: 250%;
+  max-height: none;
+  object-fit: contain;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .reader-nav {
+    display: none;
+  }
+}
+
+/* ==========================================================
    17. 2026-08-08 修正
    ・スマホの本棚を1行2冊
    ・本を読む方法は説明を上、GIFを下
