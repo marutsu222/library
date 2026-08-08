@@ -33,9 +33,9 @@
       </button>
 
       <nav id="headerMenu" class="header-menu" aria-label="メインナビゲーション">
-        <a href="#books">本棚</a>
-        <a href="#features">閲覧方法</a>
-        <a href="#gallery">ギャラリー</a>
+        <a href="#books">本を探す</a>
+        <a href="#features">本を読む方法</a>
+        <a href="#gallery">イラスト展示コーナー</a>
       </nav>
     </div>
   </header>
@@ -48,7 +48,7 @@
       </div>
 <div class="hero-visual">
     <img
-        src="./assets/top.webp"
+        src="./assets/top.png"
         alt="サイト案内キャラクター"
         class="hero-character">
 </div>
@@ -56,8 +56,7 @@
 
     <section class="search-section" id="books">
       <div class="section-heading">
-        <p class="eyebrow">ＬＩＢＲＡＲＹ</p><h2>本棚</h2>
-        <p>以下の欄から、読みたい漫画を検索できます。</p>
+        <p class="eyebrow">ＬＩＢＲＡＲＹ</p><h2>本を探す</h2>
       </div>
       <div class="filter-panel">
         <label class="search-box">
@@ -70,15 +69,13 @@
         <select id="sortSelect" aria-label="並び順">
           <option value="newest">新しい順</option>
           <option value="oldest">古い順</option>
-          <option value="favorites">お気に入りが多い順</option>
-          <option value="views">閲覧数が多い順</option>
         </select>
 
         <button id="resetButton" class="filter-reset-button" type="button">条件をリセット</button>
       </div>
 
       <div class="result-bar">
-        <p><strong id="resultCount">0</strong> 冊を表示</p>
+        <p><strong id="resultCount">0</strong> 冊を表示　タップして読めます。</p>
       </div>
       <div id="bookGrid" class="book-grid" aria-live="polite"></div>
       <p id="catalogMessage" class="empty-message">書籍情報を読み込んでいます…</p>
@@ -89,7 +86,6 @@
       <div class="section-heading light">
         <p class="eyebrow">ＨＯＷ ＴＯ</p>
         <h2>本を読む方法</h2>
-        <p>横にスライドして、読み方を確認できます。</p>
       </div>
 
       <div class="howto-track" aria-label="本を読む方法">
@@ -103,28 +99,8 @@
             <p>本棚から気になる作品を選びます。</p>
           </div>
         </article>
+               
 
-        <article class="howto-card">
-          <div class="howto-image">
-            <img src="./assets/howto/02.webp" alt="本をタップするイメージ" loading="lazy" decoding="async">
-          </div>
-          <div class="howto-body">
-            <span>02</span>
-            <h3>本をタップする</h3>
-            <p>「この本を読む」を押してビューアを開きます。</p>
-          </div>
-        </article>
-
-        <article class="howto-card">
-          <div class="howto-image">
-            <img src="./assets/howto/03.webp" alt="横にスライドして読むイメージ" loading="lazy" decoding="async">
-          </div>
-          <div class="howto-body">
-            <span>03</span>
-            <h3>スライドして読む</h3>
-            <p>スマホでは指で横にスワイプして読み進められます。</p>
-          </div>
-        </article>
       </div>
     </section>
 
@@ -132,8 +108,7 @@
       <div class="gallery-heading">
         <div>
           <p class="eyebrow">ＧＡＬＬＥＲＹ</p>
-          <h2>イラスト展示</h2>
-          <p>気になる作品を、横にめくりながらゆっくりご覧ください。</p>
+          <h2>イラスト展示コーナー</h2>
         </div>
         <div class="gallery-controls" aria-label="ギャラリー操作">
           <button id="galleryPrev" class="gallery-arrow" type="button" aria-label="前のイラスト">‹</button>

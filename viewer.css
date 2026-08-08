@@ -449,16 +449,6 @@ a {
   line-height: 1.35;
 }
 
-.cover-level {
-  display: inline-block;
-  margin-top: 18px;
-  padding: 5px 12px;
-  border: 1px solid rgba(255,255,255,.75);
-  border-radius: 999px;
-  font-size: .75rem;
-  font-weight: 800;
-}
-
 .book-info {
   padding: 22px;
 }
@@ -785,12 +775,6 @@ footer p {
 }
 .reader-progress { flex:1; accent-color:var(--accent); }
 .reader-counter { min-width:72px; text-align:right; color:#d1d5db; font-variant-numeric:tabular-nums; }
-.read-button {
-  display:inline-flex; align-items:center; justify-content:center; min-width:140px; min-height:46px;
-  padding:0 20px; border:0; border-radius:12px; color:#fff; background:var(--accent);
-  cursor:pointer; font-weight:900;
-}
-
 
 /* ==========================================================
    09. 画像漫画向け調整
@@ -835,17 +819,12 @@ body.reader-open { overflow: hidden; }
    ----------------------------------------------------------
    index.html / viewer.html
 
-   ・「無料で読む」
-   ・「この本を読む」ボタン
    ・viewer.html の全画面レイアウト
    ・横スライド漫画ビューア
    ========================================================== */
 .hero h1 span { color: var(--accent); }
-.free-label { color: var(--accent-dark); font-size: .82rem; font-weight: 900; }
 .book-cover { display: grid; min-height: 300px; place-items: center; overflow: hidden; background: #eceff3; }
 .book-cover-image { width: 100%; height: 100%; object-fit: cover; display: block; }
-.read-button { display: inline-flex; min-height: 44px; align-items: center; justify-content: center; padding: 0 17px; border: 0; border-radius: 12px; color: #fff; background: var(--accent); cursor: pointer; font-weight: 900; }
-.read-button:hover { background: var(--accent-dark); }
 
 .reader-page-body { height: 100dvh; overflow: hidden; color: #fff; background: #111318; }
 .standalone-reader { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; width: 100%; height: 100dvh; background: #111318; }
@@ -1127,9 +1106,8 @@ body.reader-open { overflow: hidden; }
    対応内容
    ① PC / スマホ共通の三本線メニュー
    ② Hero と LIBRARY の間隔を約半分に調整
-   ③ 書籍のお気に入りボタン
-   ④ 並び替えUI
-   ⑤ 「条件をリセット」を検索枠内へ移動
+   ③ 並び替えUI
+   ④ 「条件をリセット」を検索枠内へ移動
    ========================================================== */
 
 
@@ -1272,69 +1250,8 @@ body.reader-open { overflow: hidden; }
 }
 
 
-/* ==========================================================
-   13-D. お気に入り
-   ----------------------------------------------------------
-   catalog.js が書籍カード内へ生成
-
-   .favorite-button
-   .favorite-count
-   ========================================================== */
-
 .book-card {
   position: relative;
-}
-
-.favorite-button {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  z-index: 4;
-  display: inline-flex;
-  min-width: 46px;
-  height: 42px;
-  padding: 0 11px;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  border: 1px solid rgba(255,255,255,.7);
-  border-radius: 999px;
-  color: #6b7280;
-  background: rgba(255,255,255,.94);
-  box-shadow: 0 8px 24px rgba(31,41,55,.12);
-  cursor: pointer;
-  font-weight: 900;
-  backdrop-filter: blur(8px);
-}
-
-.favorite-button:hover {
-  color: var(--accent);
-}
-
-.favorite-button.active {
-  color: #fff;
-  border-color: var(--accent);
-  background: var(--accent);
-}
-
-.favorite-heart {
-  font-size: 1.12rem;
-  line-height: 1;
-}
-
-.favorite-count {
-  min-width: 1ch;
-  font-size: .78rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.book-stats {
-  display: flex;
-  gap: 12px;
-  margin-top: 12px;
-  color: #8a8f99;
-  font-size: .76rem;
-  font-weight: 700;
 }
 
 
@@ -1864,9 +1781,7 @@ body.reader-open { overflow: hidden; }
   }
 
   .book-meta,
-  .book-description,
-  .book-stats,
-  .free-label {
+  .book-description {
     display: none;
   }
 
@@ -1880,49 +1795,6 @@ body.reader-open { overflow: hidden; }
     font-size: .68rem;
     line-height: 1.32;
     overflow-wrap: anywhere;
-  }
-
-  .book-bottom {
-    display: block;
-    margin-top: 6px;
-  }
-
-  .read-button {
-    display: flex;
-    width: 100%;
-    min-width: 0;
-    min-height: 28px;
-    padding: 0 3px;
-    border-radius: 7px;
-    font-size: .66rem;
-    line-height: 1;
-  }
-
-  .read-label-full {
-    display: none;
-  }
-
-  .read-label-short {
-    display: inline;
-  }
-
-  .favorite-button {
-    top: 5px;
-    right: 5px;
-    min-width: 28px;
-    width: 28px;
-    height: 28px;
-    padding: 0;
-    gap: 0;
-    border-width: 1px;
-  }
-
-  .favorite-heart {
-    font-size: .9rem;
-  }
-
-  .favorite-count {
-    display: none;
   }
 
   /* ========================================================
@@ -2083,16 +1955,75 @@ body.reader-open { overflow: hidden; }
     font-size: .62rem;
   }
 
-  .read-button {
-    min-height: 26px;
-    font-size: .61rem;
+}
+
+/* ==========================================================
+   16. 漫画ビューア最終調整
+   ・ページ1を右端に置き、続きは左方向へ配置
+   ・端末標準のピンチズームを許可
+   ・PCでもページ画像全体を画面内に収める
+   ========================================================== */
+.reader-page-body {
+  touch-action: pan-x pan-y pinch-zoom;
+}
+
+.reader-header {
+  grid-template-columns: 52px minmax(0, 1fr) 52px;
+}
+
+.reader-back {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  min-height: 0;
+  padding: 0;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 1.8rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.reader-pages[data-direction="rtl"] {
+  direction: rtl;
+  touch-action: pan-x pan-y pinch-zoom;
+}
+
+.reader-pages[data-direction="rtl"] .reader-page {
+  direction: ltr;
+}
+
+.reader-page {
+  min-width: 100%;
+  padding: 0 56px;
+  overflow: hidden;
+}
+
+.reader-page-image {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* 読書順では前ページが右、次ページが左 */
+.reader-prev {
+  right: 8px;
+  left: auto;
+}
+
+.reader-next {
+  right: auto;
+  left: 8px;
+}
+
+@media (max-width: 520px) {
+  .reader-header {
+    grid-template-columns: 46px minmax(0, 1fr) 46px;
   }
 
-  .favorite-button {
-    top: 4px;
-    right: 4px;
-    width: 26px;
-    min-width: 26px;
-    height: 26px;
+  .reader-page {
+    padding: 0;
   }
 }

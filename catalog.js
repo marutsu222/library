@@ -1,435 +1,155 @@
-"use strict";
+(() => {
+  "use strict";
 
-/* ==========================================================
-   catalog.js
-   ----------------------------------------------------------
-   本棚ページ用JavaScript
+  const elements = {
+    grid: document.querySelector("#bookGrid"),
+    message: document.querySelector("#catalogMessage"),
+    count: document.querySelector("#resultCount"),
+    search: document.querySelector("#searchInput"),
+    categories: document.querySelector("#categoryFilters"),
+    sort: document.querySelector("#sortSelect"),
+    reset: document.querySelector("#resetButton"),
+    menuToggle: document.querySelector("#menuToggle"),
+    menu: document.querySelector("#headerMenu")
+  };
 
-   ・books.json の読み込み
-   ・検索 / カテゴリ絞り込み
-   ・新しい順 / 古い順
-   ・お気に入り順
-   ・閲覧数順
-   ・お気に入り登録
-   ・閲覧数の保存
-   ・三本線メニュー
+  let books = [];
+  let selectedCategory = "すべて";
 
-   GitHub Pagesのみで動かすため、
-   お気に入りと閲覧数はこの端末の localStorage に保存します。
-========================================================== */
+  const categoriesOf = (book) => {
+    if (Array.isArray(book.category)) return book.category.filter(Boolean);
+    return book.category ? [book.category] : [];
+  };
 
-const STORAGE_KEYS = {
-  favorites: "library:favorites",
-  views: "library:views"
-};
+  const openBook = (book) => {
+    const params = new URLSearchParams({ book: book.bookData, id: book.id });
+    window.location.href = `./viewer.html?${params.toString()}`;
+  };
 
-const state = {
-  books: [],
-  category: "すべて",
-  search: "",
-  sort: "newest",
-  favorites: new Set(),
-  views: {}
-};
-
-const elements = {
-  grid: document.getElementById("bookGrid"),
-  filters: document.getElementById("categoryFilters"),
-  search: document.getElementById("searchInput"),
-  sort: document.getElementById("sortSelect"),
-  count: document.getElementById("resultCount"),
-  reset: document.getElementById("resetButton"),
-  message: document.getElementById("catalogMessage"),
-  menuToggle: document.getElementById("menuToggle"),
-  headerMenu: document.getElementById("headerMenu")
-};
-
-
-/* ==========================================================
-   01. 共通処理
-========================================================== */
-
-function escapeHtml(value) {
-  return String(value).replace(/[&<>'"]/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    "'": "&#39;",
-    '"': "&quot;"
-  })[char]);
-}
-
-function readJsonStorage(key, fallback) {
-  try {
-    const raw = localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : fallback;
-  } catch {
-    return fallback;
-  }
-}
-
-function saveFavorites() {
-  localStorage.setItem(STORAGE_KEYS.favorites, JSON.stringify([...state.favorites]));
-}
-
-function saveViews() {
-  localStorage.setItem(STORAGE_KEYS.views, JSON.stringify(state.views));
-}
-
-function initializeLocalData() {
-  state.favorites = new Set(readJsonStorage(STORAGE_KEYS.favorites, []));
-  state.views = readJsonStorage(STORAGE_KEYS.views, {});
-}
-
-
-/* ==========================================================
-   02. お気に入り / 閲覧数
-========================================================== */
-
-function isFavorite(bookId) {
-  return state.favorites.has(String(bookId));
-}
-
-function getFavoriteCount(book) {
-  const base = Number(book.favoriteCount ?? 0);
-  return base + (isFavorite(book.id) ? 1 : 0);
-}
-
-function getViewCount(book) {
-  const base = Number(book.views ?? 0);
-  const local = Number(state.views[String(book.id)] ?? 0);
-  return base + local;
-}
-
-function toggleFavorite(bookId) {
-  const id = String(bookId);
-
-  if (state.favorites.has(id)) {
-    state.favorites.delete(id);
-  } else {
-    state.favorites.add(id);
-  }
-
-  saveFavorites();
-  renderBooks();
-}
-
-function addView(bookId) {
-  const id = String(bookId);
-  state.views[id] = Number(state.views[id] ?? 0) + 1;
-  saveViews();
-}
-
-
-/* ==========================================================
-   03. カテゴリフィルター
-========================================================== */
-
-function createFilters() {
-  const categories = [
-    "すべて",
-    ...new Set(state.books.map(book => book.category).filter(Boolean))
-  ];
-
-  elements.filters.innerHTML = categories.map(category => `
-    <button
-      class="category-button ${category === state.category ? "active" : ""}"
-      type="button"
-      data-category="${escapeHtml(category)}">
-      ${escapeHtml(category)}
-    </button>
-  `).join("");
-}
-
-
-/* ==========================================================
-   04. 並び替え
-   ----------------------------------------------------------
-   新しい順 / 古い順
-   ・publishedAt があれば日付を使用
-   ・なければ books.json の並び順を使用
-   ========================================================== */
-
-function bookTime(book) {
-  if (book.publishedAt) {
-    const time = Date.parse(book.publishedAt);
-    if (!Number.isNaN(time)) return time;
-  }
-  return Number(book.__catalogIndex ?? 0);
-}
-
-function newestFirst(a, b) {
-  return bookTime(b) - bookTime(a);
-}
-
-function getFilteredBooks() {
-  const keyword = state.search.trim().toLowerCase();
-
-  const books = state.books.filter(book => {
-    const categoryMatch =
-      state.category === "すべて" || book.category === state.category;
-
-    const target = [
-      book.title,
-      book.category,
-      book.level,
-      book.description
-    ].filter(Boolean).join(" ").toLowerCase();
-
-    return categoryMatch && (!keyword || target.includes(keyword));
-  });
-
-  books.sort((a, b) => {
-    switch (state.sort) {
-      case "oldest":
-        return bookTime(a) - bookTime(b);
-
-      case "favorites":
-        return (
-          getFavoriteCount(b) - getFavoriteCount(a) ||
-          newestFirst(a, b)
-        );
-
-      case "views":
-        return (
-          getViewCount(b) - getViewCount(a) ||
-          newestFirst(a, b)
-        );
-
-      case "newest":
-      default:
-        return newestFirst(a, b);
-    }
-  });
-
-  return books;
-}
-
-
-/* ==========================================================
-   05. 書籍カード生成
-========================================================== */
-
-function renderBooks() {
-  const books = getFilteredBooks();
-
-  elements.count.textContent = String(books.length);
-  elements.message.hidden = books.length !== 0;
-
-  if (!books.length) {
-    elements.message.textContent = "条件に合う書籍が見つかりませんでした。";
-  }
-
-  elements.grid.innerHTML = books.map(book => {
-    const readerUrl = `./viewer.html?id=${encodeURIComponent(book.id)}`;
-    const favorite = isFavorite(book.id);
-    const favoriteCount = getFavoriteCount(book);
-    const viewCount = getViewCount(book);
-
-    return `
-      <article class="book-card">
-
-        <button
-          class="favorite-button ${favorite ? "active" : ""}"
-          type="button"
-          data-favorite-id="${escapeHtml(book.id)}"
-          aria-pressed="${favorite}"
-          aria-label="${favorite ? "お気に入りから外す" : "お気に入りに追加"}">
-          <span class="favorite-heart" aria-hidden="true">${favorite ? "♥" : "♡"}</span>
-          <span class="favorite-count">${favoriteCount}</span>
-        </button>
-
-        <a
-          class="book-cover"
-          href="${readerUrl}"
-          data-read-id="${escapeHtml(book.id)}"
-          aria-label="${escapeHtml(book.title)}を読む">
-          <img
-            class="book-cover-image"
-            src="${escapeHtml(book.cover)}"
-            alt="${escapeHtml(book.title)}の表紙"
-            loading="lazy"
-            decoding="async">
-        </a>
-
-        <div class="book-info">
-          <div class="book-meta">
-            ${book.category ? `<span class="tag">${escapeHtml(book.category)}</span>` : ""}
-            ${book.level ? `<span class="tag">${escapeHtml(book.level)}</span>` : ""}
-          </div>
-
-          <h3>${escapeHtml(book.title)}</h3>
-
-          <p class="book-description">
-            ${escapeHtml(book.description || "")}
-          </p>
-
-          <div class="book-stats">
-            <span>♥ ${favoriteCount}</span>
-            <span>閲覧 ${viewCount}</span>
-          </div>
-
-          <div class="book-bottom">
-            <span class="free-label">無料で読む</span>
-            <a
-              class="read-button"
-              href="${readerUrl}"
-              data-read-id="${escapeHtml(book.id)}">
-              <span class="read-label-full">この本を読む</span>
-              <span class="read-label-short" aria-hidden="true">読む</span>
-            </a>
-          </div>
-        </div>
-      </article>
-    `;
-  }).join("");
-}
-
-
-/* ==========================================================
-   06. books.json 読み込み
-========================================================== */
-
-async function loadCatalog() {
-  try {
-    const response = await fetch("./books.json", { cache: "no-cache" });
-
-    if (!response.ok) {
-      throw new Error(`books.jsonを読み込めませんでした (${response.status})`);
-    }
-
-    const books = await response.json();
-
-    if (!Array.isArray(books)) {
-      throw new Error("books.jsonは配列形式にしてください。");
-    }
-
-    state.books = books.map((book, index) => ({
-      ...book,
-      __catalogIndex: index
+  function renderCategories() {
+    const values = ["すべて", ...new Set(books.flatMap(categoriesOf))];
+    elements.categories.replaceChildren(...values.map((category) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `category-button${category === selectedCategory ? " active" : ""}`;
+      button.textContent = category;
+      button.addEventListener("click", () => {
+        selectedCategory = category;
+        renderCategories();
+        renderBooks();
+      });
+      return button;
     }));
-
-    elements.message.hidden = true;
-
-    createFilters();
-    renderBooks();
-  } catch (error) {
-    console.error(error);
-    elements.message.hidden = false;
-    elements.message.innerHTML =
-      `書籍一覧の読み込みに失敗しました。<br>
-       <small>GitHub PagesまたはLive Serverで開いてください。</small>`;
-  }
-}
-
-
-/* ==========================================================
-   07. 検索 / フィルター / 並び替え
-========================================================== */
-
-elements.filters.addEventListener("click", event => {
-  const button = event.target.closest("[data-category]");
-  if (!button) return;
-
-  state.category = button.dataset.category;
-  createFilters();
-  renderBooks();
-});
-
-elements.search.addEventListener("input", event => {
-  state.search = event.target.value;
-  renderBooks();
-});
-
-elements.sort.addEventListener("change", event => {
-  state.sort = event.target.value;
-  renderBooks();
-});
-
-elements.reset.addEventListener("click", () => {
-  state.category = "すべて";
-  state.search = "";
-  state.sort = "newest";
-
-  elements.search.value = "";
-  elements.sort.value = "newest";
-
-  createFilters();
-  renderBooks();
-});
-
-
-/* ==========================================================
-   08. 書籍カード操作
-========================================================== */
-
-elements.grid.addEventListener("click", event => {
-  const favoriteButton = event.target.closest("[data-favorite-id]");
-
-  if (favoriteButton) {
-    event.preventDefault();
-    toggleFavorite(favoriteButton.dataset.favoriteId);
-    return;
   }
 
-  const readLink = event.target.closest("[data-read-id]");
+  function filteredBooks() {
+    const query = elements.search.value.trim().toLocaleLowerCase("ja");
+    const result = books.filter((book) => {
+      const categories = categoriesOf(book);
+      const categoryMatches = selectedCategory === "すべて" || categories.includes(selectedCategory);
+      const searchable = [book.title, book.description, ...categories].filter(Boolean).join(" ").toLocaleLowerCase("ja");
+      return categoryMatches && (!query || searchable.includes(query));
+    });
 
-  if (readLink) {
-    addView(readLink.dataset.readId);
+    return result.sort((a, b) => {
+      const direction = elements.sort.value === "oldest" ? 1 : -1;
+      return direction * String(a.publishedAt || "").localeCompare(String(b.publishedAt || ""));
+    });
   }
-});
 
+  function createBookCard(book) {
+    const card = document.createElement("article");
+    card.className = "book-card";
+    card.tabIndex = 0;
+    card.setAttribute("role", "link");
+    card.setAttribute("aria-label", `${book.title}を読む`);
 
-/* ==========================================================
-   09. 三本線メニュー
-========================================================== */
+    const cover = document.createElement("div");
+    cover.className = "book-cover";
+    const image = document.createElement("img");
+    image.className = "book-cover-image";
+    image.src = book.cover;
+    image.alt = `${book.title}の表紙`;
+    image.loading = "lazy";
+    image.decoding = "async";
+    cover.append(image);
 
-function closeMenu() {
-  if (!elements.menuToggle || !elements.headerMenu) return;
+    const info = document.createElement("div");
+    info.className = "book-info";
+    const meta = document.createElement("div");
+    meta.className = "book-meta";
+    categoriesOf(book).forEach((category) => {
+      const tag = document.createElement("span");
+      tag.className = "tag";
+      tag.textContent = category;
+      meta.append(tag);
+    });
+    const title = document.createElement("h3");
+    title.textContent = book.title;
+    const description = document.createElement("p");
+    description.className = "book-description";
+    description.textContent = book.description || "";
+    info.append(meta, title, description);
+    card.append(cover, info);
 
-  elements.menuToggle.setAttribute("aria-expanded", "false");
-  elements.menuToggle.setAttribute("aria-label", "メニューを開く");
-  elements.headerMenu.classList.remove("open");
-}
+    card.addEventListener("click", () => openBook(book));
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openBook(book);
+      }
+    });
+    return card;
+  }
 
-function toggleMenu() {
-  if (!elements.menuToggle || !elements.headerMenu) return;
+  function renderBooks() {
+    const visible = filteredBooks();
+    elements.count.textContent = String(visible.length);
+    elements.grid.replaceChildren(...visible.map(createBookCard));
+    elements.message.hidden = visible.length > 0;
+    elements.message.textContent = visible.length ? "" : "条件に合う書籍がありません。";
+  }
 
-  const willOpen =
-    elements.menuToggle.getAttribute("aria-expanded") !== "true";
+  function setupControls() {
+    elements.search.addEventListener("input", renderBooks);
+    elements.sort.addEventListener("change", renderBooks);
+    elements.reset.addEventListener("click", () => {
+      elements.search.value = "";
+      elements.sort.value = "newest";
+      selectedCategory = "すべて";
+      renderCategories();
+      renderBooks();
+    });
 
-  elements.menuToggle.setAttribute("aria-expanded", String(willOpen));
-  elements.menuToggle.setAttribute(
-    "aria-label",
-    willOpen ? "メニューを閉じる" : "メニューを開く"
-  );
+    elements.menuToggle?.addEventListener("click", () => {
+      const open = elements.menuToggle.getAttribute("aria-expanded") !== "true";
+      elements.menuToggle.setAttribute("aria-expanded", String(open));
+      elements.menuToggle.setAttribute("aria-label", open ? "メニューを閉じる" : "メニューを開く");
+      elements.menu?.classList.toggle("open", open);
+    });
+    elements.menu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
+      elements.menuToggle?.setAttribute("aria-expanded", "false");
+      elements.menu?.classList.remove("open");
+    }));
+  }
 
-  elements.headerMenu.classList.toggle("open", willOpen);
-}
+  async function init() {
+    setupControls();
+    try {
+      const response = await fetch("./books.json", { cache: "no-store" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const data = await response.json();
+      if (!Array.isArray(data)) throw new Error("books.json must contain an array");
+      books = data;
+      renderCategories();
+      renderBooks();
+    } catch (error) {
+      console.error(error);
+      elements.count.textContent = "0";
+      elements.message.hidden = false;
+      elements.message.textContent = "書籍情報を読み込めませんでした。";
+    }
+  }
 
-if (elements.menuToggle && elements.headerMenu) {
-  elements.menuToggle.addEventListener("click", event => {
-    event.stopPropagation();
-    toggleMenu();
-  });
-
-  elements.headerMenu.addEventListener("click", event => {
-    if (event.target.closest("a")) closeMenu();
-  });
-
-  document.addEventListener("click", event => {
-    if (!event.target.closest(".header-menu-wrap")) closeMenu();
-  });
-
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape") closeMenu();
-  });
-}
-
-
-/* ==========================================================
-   10. 初期化
-========================================================== */
-
-initializeLocalData();
-loadCatalog();
+  init();
+})();

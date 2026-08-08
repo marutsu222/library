@@ -8,8 +8,7 @@ const elements = {
   prev: document.getElementById("readerPrev"),
   next: document.getElementById("readerNext"),
   progress: document.getElementById("readerProgress"),
-  counter: document.getElementById("readerCounter"),
-  fullscreen: document.getElementById("readerFullscreen")
+  counter: document.getElementById("readerCounter")
 };
 
 let currentBook = null;
@@ -86,10 +85,8 @@ function renderBook() {
   const title = currentBook.title || "漫画";
   document.title = `${title}｜吉田図書館`;
   elements.title.textContent = title;
-  elements.hint.textContent = currentBook.readingDirection === "rtl"
-    ? "右から左へ横にスワイプして読めます"
-    : "横にスワイプして読めます";
-  elements.pages.dataset.direction = currentBook.readingDirection || "ltr";
+  elements.hint.textContent = "左へスワイプして読めます・2本指で拡大できます";
+  elements.pages.dataset.direction = "rtl";
   elements.pages.innerHTML = currentBook.pages.map((src, index) => `
     <section class="reader-page" aria-label="${index + 1}ページ目">
       <img class="reader-page-image" src="${escapeHtml(src)}" alt="${escapeHtml(title)} ${index + 1}ページ目"
@@ -110,30 +107,31 @@ function showError(error) {
   elements.app.setAttribute("aria-busy", "false");
 }
 
-async function toggleFullscreen() {
-  try {
-    if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
-    else await document.exitFullscreen();
-  } catch (error) {
-    console.warn("全画面表示を開始できませんでした。", error);
-  }
-}
-
 elements.prev.addEventListener("click", () => goToPage(currentPage - 1));
 elements.next.addEventListener("click", () => goToPage(currentPage + 1));
 elements.progress.addEventListener("input", event => goToPage(Number(event.target.value) - 1));
 elements.pages.addEventListener("scroll", () => {
   clearTimeout(scrollTimer);
   scrollTimer = setTimeout(() => {
-    if (!currentBook || !elements.pages.clientWidth) return;
-    currentPage = Math.round(elements.pages.scrollLeft / elements.pages.clientWidth);
+    if (!currentBook) return;
+    const viewportCenter = elements.pages.getBoundingClientRect().left + elements.pages.clientWidth / 2;
+    let nearestIndex = currentPage;
+    let nearestDistance = Infinity;
+    [...elements.pages.children].forEach((page, index) => {
+      const rect = page.getBoundingClientRect();
+      const distance = Math.abs(rect.left + rect.width / 2 - viewportCenter);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearestIndex = index;
+      }
+    });
+    currentPage = nearestIndex;
     updateControls();
   }, 80);
 }, { passive: true });
-elements.fullscreen.addEventListener("click", toggleFullscreen);
 document.addEventListener("keydown", event => {
-  if (event.key === "ArrowLeft") goToPage(currentPage - 1);
-  if (event.key === "ArrowRight") goToPage(currentPage + 1);
+  if (event.key === "ArrowLeft") goToPage(currentPage + 1);
+  if (event.key === "ArrowRight") goToPage(currentPage - 1);
   if (event.key === "Home") goToPage(0);
   if (event.key === "End" && currentBook) goToPage(currentBook.pages.length - 1);
 });
