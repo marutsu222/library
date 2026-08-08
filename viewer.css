@@ -1348,9 +1348,8 @@ body.reader-open { overflow: hidden; }
 }
 
 .howto-image {
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: rgba(255,255,255,.08);
+  height: 400px;
+  aspect-ratio: auto;
 }
 
 .howto-image img {
@@ -1815,7 +1814,7 @@ body.reader-open { overflow: hidden; }
   }
 
   .howto-card {
-    flex: 0 0 calc(100vw - 56px);
+    flex: 0 0 calc(100vw - 96px);
     scroll-snap-align: start;
     border-radius: 17px;
   }
