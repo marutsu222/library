@@ -14,6 +14,7 @@
    10. 一覧ページ / 独立ビューア補助
    11. イラストギャラリー
    12. レスポンシブ
+   19. LINEスタンプ
 
    対応ファイル
    - index.html
@@ -606,8 +607,8 @@ footer {
   justify-content: space-between;
   align-items: end;
   padding: 54px 6vw;
-  color: #d1d5db;
-  background: #141924;
+  color: #ffffff;
+  background: #fc6e83;
 }
 
 footer p {
@@ -1149,7 +1150,7 @@ body.reader-open { overflow: hidden; }
   width: 22px;
   height: 2px;
   border-radius: 999px;
-  background: var(--ink);
+  background: #ff888e;
   transition: transform .2s ease, opacity .2s ease;
 }
 
@@ -2287,4 +2288,18 @@ body.reader-open { overflow: hidden; }
     padding-top: 7px;
     padding-bottom: 7px;
   }
+}
+
+
+/* ==========================================================
+   19. LINEスタンプコーナー
+   ========================================================== */
+
+/* ===== 文字サイズ ===== */
+.free-stamp-section h2 {
+  font-size: 22px;
+}
+
+.free-stamp-description {
+  font-size: 14px;
 }

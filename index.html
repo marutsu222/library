@@ -29,6 +29,33 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== 無料LINEスタンプ配布コーナー ===== */
+    .free-stamp-section {
+      padding: 48px 20px 56px;
+      text-align: center;
+    }
+    .free-stamp-section h2 {
+      margin: 0 0 22px;
+      font-size: clamp(1.25rem, 3vw, 1.7rem);
+      font-weight: 900;
+    }
+    .free-stamp-link {
+      display: inline-block;
+      width: min( min(100%, 280px), 70vw );
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      border-radius: 16px;
+      vertical-align: top;
+    }
+    .free-stamp-link img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
   <link rel="stylesheet" href="./viewer.css">
   <script src="./catalog.js" defer></script>
   <script src="./gallery.js" defer></script>
@@ -56,7 +83,8 @@
       <nav id="headerMenu" class="header-menu" aria-label="メインナビゲーション">
         <a href="#books">本を探す</a>
         <a href="#features">本を読む方法</a>
-        <a href="#gallery">イラスト展示コーナー</a>
+        <a href="#linestamp">LINEスタンプ</a>
+        <a href="#gallery">イラスト展示コーナー(準備中)</a>
       </nav>
     </div>
   </header>
@@ -77,7 +105,7 @@
 
     <section class="search-section" id="books">
       <div class="section-heading">
-        <p class="eyebrow">ＬＩＢＲＡＲＹ</p><h2>本を探す</h2>
+        <h2>本を探す</h2>
       </div>
       <div class="filter-panel">
         <label class="search-box">
@@ -105,7 +133,6 @@
     <!-- ===== 本を読む方法：説明＋GIF横スライド ===== -->
     <section class="features" id="features">
       <div class="section-heading light">
-        <p class="eyebrow">ＨＯＷ ＴＯ</p>
         <h2>本を読む方法</h2>
       </div>
 
@@ -132,6 +159,18 @@
       </figure>
     </dialog>
   </main>
+
+
+    <!-- ===== 無料LINEスタンプ配布コーナー ===== -->
+    <section class="search-section" id="linestamp">
+      <div class="section-heading">
+        <h2>LINEスタンプ
+        </h2>
+      </div>
+<p class="free-stamp-description">タップするとダウンロードページが開きます。</p>      <a class="free-stamp-link" href="★★★" target="_blank" rel="noopener noreferrer" aria-label="LINEスタンプを受け取る">
+        <img src="https://marutsu222.github.io/library/books/magazine_001/cover.webp" alt="" loading="lazy" decoding="async">
+      </a>
+    </section>
 
   <footer><div><strong>心情ライブラリ</strong></div><small>© 2026 吉田家庭氏族教会</small></footer>
   <script>
